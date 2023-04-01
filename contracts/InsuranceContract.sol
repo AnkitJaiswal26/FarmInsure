@@ -1,19 +1,24 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract InsuranceContract is Ownable {
     address payable owner;
     address public client;
     uint public premium;
-    uint public payout;
+    uint public payoutValue;
     uint startDate;
     uint duration;
     string cropLocation;
     bool contractActive;
+    uint claimStartDate;
+    bool public toClaimStatus;
+    bool isClaimed;
     uint requestCount;
     uint daysWithoutRain;
+    uint hotDays;
+    string cropType;
 
     struct PaymentPremium {
         uint256 months;
@@ -26,14 +31,25 @@ contract InsuranceContract is Ownable {
 
     PaymentPremium premiumPayment;
 
-    uint public constant DROUGHT_DAYS_THRESDHOLD = 3;
+    // To DO  
+    uint public constant DROUGHT_DAYS_THRESHOLD = 3;
+    uint public constant HOT_DAYS_THRESHOLD = 3;
+    uint public constant CLAIM_FILING_PERIOD = 15;
+    uint public constant DAY_IN_SECONDS = 60;
 
     modifier onContractActive() {
         require(contractActive == true, "Contract has ended");
         _;
     }
 
-    event rainfallThresholdReset(uint _currrainfall);
+    modifier validClaimer{
+        require((block.timestamp - claimStartDate)/(DAY_IN_SECONDS) <= CLAIM_FILING_PERIOD );
+        _;
+    }
+
+    event rainfallThresholdReset(uint _curRainfall);
+    event hotDaysThresholdReset(uint _curTemp);
+    event contractPaidOut(uint time,uint payoutValue);
 
     constructor(
         address _client,
@@ -44,11 +60,14 @@ contract InsuranceContract is Ownable {
     ) {
         client = _client;
         premium = _premium;
-        payout = _payout;
+        payoutValue = _payout;
         startDate = block.timestamp;
         duration = _duration;
         cropLocation = _cropLocation;
+        cropType = _cropType;
         contractActive = true;
+        isClaimed = false;
+        toClaimStatus = false;
         requestCount = 0;
         premiumPayment = PaymentPremium({
             months: months,
@@ -60,55 +79,67 @@ contract InsuranceContract is Ownable {
         })
     }
 
-    function getContractStatus() public view onlyOwner returns (bool) {
+    function getContractStatus() public view onlyOwner returns(bool)
+    {
         return contractActive;
     }
 
-    function checkRainfall() public onContractActive {
-        uint _rainfall;
+    function checkWeather() public onContractActive {
 
-        if (cropLocation == "Mumbai") _rainfall = 20;
-        else _rainfall = 400;
+        uint normal_rainfall = 150;
+        uint current_rainfall;
+        uint normal_temperature = 30;
+        uint current_temperature;
+
+        /* Checking rainfall conditions */
+        if(keccak256(abi.encodePacked(cropType)) == keccak256(abi.encodePacked("Rabi"))){
+            current_temperature = 40;
+            current_rainfall = 400;
+        }
+        else if(keccak256(abi.encodePacked(cropType)) == keccak256(abi.encodePacked("Kharif"))){
+            current_rainfall = 100;
+        }
 
         requestCount += 1;
-        // set current temperature to value returned from Oracle, and store date this was retrieved (to avoid spam and gaming the contract)
-        // currentRainfallList[dataRequestsSent] = _rainfall;
-        // dataRequestsSent = dataRequestsSent + 1;
 
-        // set current rainfall to average of both values
-        // if (dataRequestsSent > 1) {
-        // currentRainfall = (currentRainfallList[0].add(currentRainfallList[1]).div(2));
-        // currentRainfallDateChecked = now;
-        // requestCount +=1;
+          //check if payout conditions have been met, if so call payoutcontract, which should also end/kill contract at the end
 
-        //check if payout conditions have been met, if so call payoutcontract, which should also end/kill contract at the end
-        if (_rainfall < 150) {
-            //temp threshold has been  met, add a day of over threshold
-            daysWithoutRain += 1;
-        } else {
-            //there was rain today, so reset daysWithoutRain parameter
-            daysWithoutRain = 0;
-            emit rainfallThresholdReset(_rainfall);
-        }
+        if(keccak256(abi.encodePacked(cropType)) == keccak256(abi.encodePacked("Kharif"))){
+            if (current_rainfall < normal_rainfall) { //temp threshold has been  met, add a day of over threshold
+                daysWithoutRain += 1;
+            } else {
+                //there was rain today, so reset daysWithoutRain parameter
+                daysWithoutRain = 0;
+                emit rainfallThresholdReset(current_rainfall);
+            }
+            if (daysWithoutRain >= DROUGHT_DAYS_THRESHOLD) {  // day threshold has been met
+                /* need to pay client out insurance amount*/
+                toClaimStatus = true;
+                claimStartDate = block.timestamp;
+                // notify();
+            }
+        }else if(keccak256(abi.encodePacked(cropType)) == keccak256(abi.encodePacked("Rabi"))){
+            if(current_temperature > normal_temperature || current_rainfall > normal_rainfall){
+                hotDays += 1;
+            }
+            else {
+                hotDays = 0;
+                emit hotDaysThresholdReset(current_temperature);
+            }
 
-        if (daysWithoutRain >= DROUGHT_DAYS_THRESDHOLD) {
-            // day threshold has been met
-            //need to pay client out insurance amount
-            payOutContract();
+            if (hotDays >= HOT_DAYS_THRESHOLD)
+            {
+                /* need to pay client out insurance amount */
+                toClaimStatus = true;
+                claimStartDate = block.timestamp;
+                // notify();
+            }
         }
     }
 
-    function fetchPremiumPayment () public view returns(PaymentPremium) {
-        return premiumPayment;
-    }
-
-    function payPremium() public payable {
-        payable(address(this)).transfer(msg.value);
-        address(owner).transfer(msg.value);
-
-        premiumPayment.currentMonth += 1;
-        premiumPayment.lastPaymentDate = block.timestamp;
-        premiumPayment.monthDate += 30 days;
-        premiumPayment.remainingAmount -= msg.value;
+    function payout() private validClaimer{
+        client.transfer(payoutValue);
+        emit contractPaidOut(block.timestamp, payoutValue);
+        toClaimStatus = false;
     }
 }

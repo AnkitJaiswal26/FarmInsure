@@ -2,7 +2,6 @@
 pragma solidity ^0.8.9;
 
 import "./InsuranceContract.sol";
-
 import "hardhat/console.sol";
 
 // import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
@@ -14,6 +13,15 @@ import "hardhat/console.sol";
 contract InsuranceProvider {
     address insurer;
     mapping(address => InsuranceContract) public contracts;
+    uint contractCount;
+    // mapping (address => InsuranceContract) public contracts;
+    mapping(uint => address) public contractAddresses;
+
+    event contractCreated(
+        address _insuranceContract,
+        uint _premium,
+        uint _payout
+    );
 
     event contractCreated(
         address _insuranceContract,
@@ -28,24 +36,29 @@ contract InsuranceProvider {
 
     constructor() public {
         insurer = msg.sender;
+        contractCount = 0;
     }
 
     function newContract(
-        address _client,
+        address payable _client,
         uint _premium,
         uint _payout,
         uint _duration,
-        string memory _cropLocation
+        string memory _cropLocation,
+        string memory _cropType
     ) public onlyOwner {
+        contractCount++;
+
         InsuranceContract i = new InsuranceContract(
             _client,
             _premium,
             _payout,
             _duration,
-            _cropLocation
+            _cropLocation,
+            _cropType
         );
-
         contracts[address(i)] = i;
+        contractAddresses[contractCount] = address(i);
 
         emit contractCreated(address(i), _premium, _payout);
     }
@@ -70,6 +83,28 @@ contract InsuranceProvider {
     function getContractStatus(address _address) external view returns (bool) {
         InsuranceContract i = InsuranceContract(_address);
         return i.getContractStatus();
+    }
+
+    function notify()
+        public
+        view
+        onlyOwner
+        returns (InsuranceContract[] memory)
+    {
+        uint count = 0;
+        for (uint i = 1; i <= contractCount; i++) {
+            if (contracts[contractAddresses[i]].toClaimStatus() == true)
+                count++;
+        }
+
+        InsuranceContract[] memory result = new InsuranceContract[](count);
+        for (uint i = 1; i <= count; i++) {
+            if (contracts[contractAddresses[i]].toClaimStatus() == true) {
+                InsuranceContract cur = contracts[contractAddresses[i]];
+                result[i] = cur;
+            }
+        }
+        return result;
     }
 
     receive() external payable {}
