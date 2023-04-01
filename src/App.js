@@ -10,91 +10,109 @@ import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import InsuranceList from "./pages/InsuranceList/InsuranceList";
 import Insurance from "./pages/Insurance/Insurance";
 import AddFarm from "./pages/AddFarm/Addfarm";
-
+import ApplyInsurance from "./pages/ApplyInsurance/ApplyInsurance";
+import CompanyDashboard from "./pages/CompanyDashboard/CompanyDashboard";
 
 const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <>
-          <MainPage />
-        </>
-      ),
-    },
-    {
-      path: "/register",
-      element: (
-        <>
-          <Register />
-        </>
-      ),
-    },
-    {
-      path: "/registerfarmer",
-      element: (
-        <>
-          {/* <Navbar /> */}
-          <RegisterFarmer />
-        </>
-      ),
-    },
-    {
-      path: "registercompany",
-      element: (
-        <>
-          <RegisterCompany />
-        </>
-      ),
-    },
-    {
-      path: "/:id/farmerdashboard",
-      element :(
-        <>
-          <FarmerDashboard/>
-        </>
-      )
-    },
-    {
-      path: "/:id/addfarm",
-      element :(
-        <>
-          <AddFarm/>
-        </>
-      )
-    },
-    ,
-    {
-      path: "/insurances",
-      element :(
-        <>
-          <InsuranceList/>
-        </>
-      )
-    },
-    {
-      path: "/:id/insurance",
-      element :(
-        <>
-          <Insurance/>
-        </>
-      )
-    },
-    {
-      path: "/admin",
+	const router = createBrowserRouter([
+		{
+			path: "/",
+			element: (
+				<>
+					<MainPage />
+				</>
+			),
+		},
+		{
+			path: "/register",
+			element: (
+				<>
+					<Register />
+				</>
+			),
+		},
+		{
+			path: "/registerfarmer",
+			element: (
+				<>
+					{/* <Navbar /> */}
+					<RegisterFarmer />
+				</>
+			),
+		},
+		{
+			path: "registercompany",
+			element: (
+				<>
+					<RegisterCompany />
+				</>
+			),
+		},
+		{
+			path: "/:id/farmerdashboard",
+			element: (
+				<>
+					<FarmerDashboard />
+				</>
+			),
+		},
+		{
+			path: "/addfarm",
+			element: (
+				<>
+					<AddFarm />
+				</>
+			),
+		},
+		,
+		{
+			path: "/insurances",
+			element: (
+				<>
+					<InsuranceList />
+				</>
+			),
+		},
+		{
+			path: "/:id/insurance",
+			element: (
+				<>
+					<Insurance />
+				</>
+			),
+		},
+		,
+		{
+			path: "/:id/apply",
+			element: (
+				<>
+					<ApplyInsurance />
+				</>
+			),
+		},
+		{
+			path: "/admin",
 			element: (
 				<>
 					<AdminDashboard />
 				</>
 			),
+    },
+    {
+      path: "/:id/company",
+			element: (
+				<>
+					<CompanyDashboard />
+				</>
+			),
     }
   ]);
 
-  return (
-    <>
-      <RouterProvider router={router}></RouterProvider>
-    </>
-  );
+	return (
+		<>
+			<RouterProvider router={router}></RouterProvider>
+		</>
+	);
 };
 
 export default App;

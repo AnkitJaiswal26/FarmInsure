@@ -1,0 +1,215 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(#66D2CC, #3062F3);
+}
+.secondContainer{
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 1.8rem;
+    background-color: #ffffff;
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #1C5253;
+    transition: all 0.5s ease;
+    box-shadow: 0px 1px 8px #000000;
+    width: 90%;
+    /* opacity: 0.8; */
+    /* filter: blur(8px); */
+}
+.mainHeading{
+    font-family: 'Prosto One', cursive;
+    margin: 15px;
+    padding: 20px;
+    color: #1C5253;
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /* border-top: 1px solid #98b2ff; */
+}
+.button, .button2{
+    margin: 1rem 5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 1.8rem;
+    background-image: linear-gradient(#66D2CC, #3062F3);
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    transition: all 0.5s ease;
+    box-shadow: 0px 1px 10px #12196c;
+}
+.headFarm, .headInsurance{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.button:hover{
+    background-image: linear-gradient(#3062F3, #090446);
+    transform: scale(1.02);
+}
+.button2:hover{
+    transform: scale(1.02);
+}
+
+.viewFarms, .viewInsurances{
+    display: flex;
+    flex-direction: column;
+    width:70%;
+}
+.farmsHeadBox, .insuranceHeadBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 15px 35px;
+    padding: 20px 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    /* border-bottom: 1px solid #98b2ff; */
+}
+.farmsHead, .insuranceHead{
+    font-family: 'Chivo Mono', monospace;    
+    margin: 15px 5px;
+    padding: 20px 50px;
+    color: #3062F3;
+}
+.button2{
+    background-image: linear-gradient(#3062f3, #3062f3);
+    margin: 35px;
+}
+.farmsCards, .insuranceCards{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 400px));;
+    column-gap: 4rem;
+    row-gap: 5rem;
+    margin: 2.5rem;
+}
+.farm, .insurance{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 1.8rem;
+    background-color: #ffffff;
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #1C5253;
+    transition: all 0.5s ease;
+    box-shadow: 0px 1px 5px #d0d0d0;
+}
+.farm:hover, .insurance:hover{
+    transform: scale(1.01);
+}
+.details{
+    font-size: 1.1rem;
+    color: #1C5253;
+    font-weight: 600;
+    padding: 20px 0px 0px 0px;
+    margin: 5px;
+    width: 100%;
+}
+.shadow{
+    width: 90%;
+    margin: auto;
+    height: 1px;
+    box-shadow: 0px 1px 5px #d0d0d0;
+}
+.values{
+    margin: 0px 10px;
+    color: #15227d;
+}
+.modalContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: #231123; */
+    /* position: fixed; */
+    /* z-index: 1000; */
+}
+
+.closeButton{
+    background-color: transparent;
+    padding: 0.3rem 0.5rem;
+    align-self: flex-end;
+    font-size: 0.9rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    border: none;
+    /* width: 10%; */
+}
+
+.inputContainer, .inputContainer2 {
+    display: flex;
+    flex-direction: column;
+    width: 330px;
+}
+
+.inputContainer2{
+    flex-direction: row;
+}
+
+.inputLabel {
+    font-size: 1.1rem;
+    color: #090446;
+    font-weight: 600;
+    padding: 20px 0px 0px 0px;
+    margin: 5px;
+    width: 100%;
+}
+
+.input, .modalInput {
+    width: 100%;
+    padding: 12px 12px;
+    outline: none;
+    border: 1px white solid;
+    margin: 0.1rem;
+    font-size: 1.1rem;
+    background-color: #FAFAFA;
+    border-radius: 0.4rem;
+    box-shadow: 0px 1px 5px black;
+}
+.modalInput{
+    padding: 6px 1px;
+    margin: 10px;
+}
+
+
+.registerBtn, .submitButton, .submitOtpButton{
+    margin: auto;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 1.8rem;
+    background-image: linear-gradient(#3062F3, #090446);
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    transition: all 0.5s ease;
+    box-shadow: 0px 1px 10px #12196c;
+}
+
+.registerBtn:hover, .submitButton:hover, .submitOtpButton:hover{
+    background-image: linear-gradient(#3062F3, #090446);
+    transform: scale(1.02);
+}

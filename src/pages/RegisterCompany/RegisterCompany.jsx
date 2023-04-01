@@ -24,18 +24,21 @@ const RegisterCompany = () => {
 	const [mobileNo, setMobileNo] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 
-	// const { checkIfWalletConnected, currentAccount } = useAuth();
+	const { connectUsingArcana, currentAccount } = useAuth();
 
-	const { registerUser, fetchUserByAddress } = useSafeInsureContext();
+	const { registerCompany, fetchCompanyByAddress, fetchActiveRequests } =
+		useSafeInsureContext();
 	const fetchUser = useCallback(async () => {
 		try {
-			// const user = await fetchUserByAddress(currentAccount);
-			// console.log(user);
-			// if (user.name !== "") {
-			// 	navigate("/userDashboard");
-			// }
+			const user = await fetchCompanyByAddress(currentAccount);
+			console.log(user);
+			if (user.name !== "") {
+				navigate("/companyDashboard");
+			}
 		} catch (err) {
-			//   console.log("User cann/ot be fetched");
+			const data = await fetchActiveRequests();
+			console.log(data);
+			console.log("User cann/ot be fetched");
 		}
 	});
 	const handleDocFileChange = (e) => {
@@ -43,41 +46,31 @@ const RegisterCompany = () => {
 		setDocFile(e.target.files);
 	};
 
-	useEffect(
-		() => {
-			// if (currentAccount) fetchUser();
-			// checkIfWalletConnected();
-		}
-		//   [currentAccount]
-	);
+	useEffect(() => {
+		if (currentAccount) fetchUser();
+		connectUsingArcana();
+	}, [currentAccount]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// try {
-		//   if (
-		//     name == "" ||
-		//     email == "" ||
-		//     mobileNo == "" ||
-		//     age == 0 ||
-		//     gender == ""
-		//   ) {
-		//     toast.error("Enter all details first");
-		//     return;
-		//   } else {
-		//     setIsLoading(true);
-		//     toast.warn("Please wait for a moment");
-		//     console.log(currentAccount, name, email, mobileNo, gender, age);
-		//     await registerUser(currentAccount, name, email, mobileNo, gender, age);
-		//     toast.success("User registered successfully");
-		// 	navigate("/userDashboard")
-		//   }
-		// } catch (err) {
-		//   console.log(err);
-		//   toast.error("User not registered");
-		//   setIsLoading(false);
-		// }
-		// setIsLoading(false);
-		// console.log("Register");
+		try {
+			if (name === "" || mobileNo === "") {
+				toast.error("Enter all details first");
+				return;
+			} else {
+				setIsLoading(true);
+				toast.warn("Please wait for a moment");
+				await registerCompany(currentAccount, name, mobileNo);
+				toast.success("User registered successfully");
+				navigate("/companyDashboard");
+			}
+		} catch (err) {
+			console.log(err);
+			toast.error("User not registered");
+			setIsLoading(false);
+		}
+		setIsLoading(false);
+		console.log("Register");
 	};
 
 	return (
