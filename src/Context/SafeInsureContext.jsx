@@ -180,6 +180,16 @@ export const SafeInsureProvider = ({ children }) => {
 		return data;
 	};
 
+	const uploadFilesToIPFS = async (file) => {
+		try {
+			// console.log(file);
+			const cid = await web3Storage.put(file);
+			return cid;
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	const addNewFarm = async (
 		userAdd,
 		location,
@@ -280,6 +290,7 @@ export const SafeInsureProvider = ({ children }) => {
 				addNewFarm,
 				fetchUserFarms,
 				ownerIs,
+				uploadFilesToIPFS,
 			}}
 		>
 			{children}
