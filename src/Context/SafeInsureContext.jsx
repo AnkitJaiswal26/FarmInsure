@@ -306,6 +306,7 @@ export const SafeInsureProvider = ({ children }) => {
 				});
 			}
 		}
+		console.log(result);
 		return result;
 	};
 
