@@ -91,7 +91,7 @@ const CompanyDashboard = () => {
             Enter details
           </h2>
 
-          <form>
+          <form className={`${styles.formBox}`} >
             <div className={styles.inputContainer}>
               <input
                 className={`${styles.modalInput}`}
