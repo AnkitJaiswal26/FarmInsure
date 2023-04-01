@@ -6,6 +6,9 @@ import MainPage from "./pages/MainPage/MainPage";
 import Register from "./pages/Register/Register";
 import RegisterCompany from "./pages/RegisterCompany/RegisterCompany";
 import FarmerDashboard from "./pages/FarmerDashboard/FarmerDashboard";
+import InsuranceList from "./pages/InsuranceList/InsuranceList";
+import Insurance from "./pages/Insurance/Insurance";
+import AddFarm from "./pages/AddFarm/Addfarm";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -49,7 +52,32 @@ const App = () => {
           <FarmerDashboard/>
         </>
       )
-    }
+    },
+    {
+      path: "/:id/addfarm",
+      element :(
+        <>
+          <AddFarm/>
+        </>
+      )
+    },
+    ,
+    {
+      path: "/insurances",
+      element :(
+        <>
+          <InsuranceList/>
+        </>
+      )
+    },
+    {
+      path: "/:id/insurance",
+      element :(
+        <>
+          <Insurance/>
+        </>
+      )
+    },
   ]);
 
   return (

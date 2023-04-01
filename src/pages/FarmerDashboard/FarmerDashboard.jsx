@@ -30,15 +30,27 @@ const FarmerDashboard = () => {
             <div className={styles.farmsCards}>
               <div className={styles.farm}>
                 <div className={styles.headFarm}>FileName</div>
-                <div className={styles.details}>Location: <span className={styles.values}>Latur</span></div>
-                <div className={styles.details}>LandArea: <span className={styles.values}>2 acre</span></div>
-                <div className={styles.details}>CropType: <span className={styles.values}>Rabi</span></div>
+                <div className={styles.details}>
+                  Location: <span className={styles.values}>Latur</span>
+                </div>
+                <div className={styles.details}>
+                  LandArea: <span className={styles.values}>2 acre</span>
+                </div>
+                <div className={styles.details}>
+                  CropType: <span className={styles.values}>Rabi</span>
+                </div>
               </div>
               <div className={styles.farm}>
                 <div className={styles.headFarm}>FileName</div>
-                <div className={styles.details}>Location: <span className={styles.values}>Bhusawal</span></div>
-                <div className={styles.details}>LandArea: <span className={styles.values}>1 acre</span></div>
-                <div className={styles.details}>CropType: <span className={styles.values}>Kharif</span></div>
+                <div className={styles.details}>
+                  Location: <span className={styles.values}>Bhusawal</span>
+                </div>
+                <div className={styles.details}>
+                  LandArea: <span className={styles.values}>1 acre</span>
+                </div>
+                <div className={styles.details}>
+                  CropType: <span className={styles.values}>Kharif</span>
+                </div>
               </div>
             </div>
           </div>
@@ -59,9 +71,15 @@ const FarmerDashboard = () => {
         string ipfsHash;
         string fileName; */}
                 <div className={styles.headInsurance}>Insurance</div>
-                <div className={styles.details}>Period: <span className={styles.values}>1 year</span></div>
-                <div className={styles.details}>Premium paid : <span className={styles.values}>1000</span></div>
-                <div className={styles.details}>Next Due: <span className={styles.values}>7th April</span></div>
+                <div className={styles.details}>
+                  Period: <span className={styles.values}>1 year</span>
+                </div>
+                <div className={styles.details}>
+                  Premium paid : <span className={styles.values}>1000</span>
+                </div>
+                <div className={styles.details}>
+                  Next Due: <span className={styles.values}>7th April</span>
+                </div>
               </div>
             </div>
           </div>
