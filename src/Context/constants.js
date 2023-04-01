@@ -1,15 +1,14 @@
 // import insuranceProvider from "";
 // import insuranceContract from "";
 import safeInsure from "../artifacts/contracts/SafeInsure.sol/SafeInsure.json";
+import insuranceProvider from "../artifacts/contracts/InsuranceProvider.sol/InsuranceProvider.json";
+import insuranceContract from "../artifacts/contracts/InsuranceContract.sol/InsuranceContract.json";
 
-export const SafeInsureAddress = "0xd7A1F3177c7f3046c2632f4995f68aa385Ce971A";
+export const SafeInsureAddress = "0x843d15538d110A77f362E9D26caa3A8aBFC82fb2";
 export const SafeInsureABI = safeInsure.abi;
 
-// export const InsuranceProviderAddress = "0x721D70B6BCa44C075b89cbc19A10537E9127E379";
-// export const InsuranceProviderABI = insuranceProvider.abi;
-
-// export const InsuranceContractAddress = "insuranceContractAddress.abi";
-// export const InsuranceContractABI = insuranceContract.abi;
+export const InsuranceProviderABI = insuranceProvider.abi;
+export const InsuranceContractABI = insuranceContract.abi;
 
 export const ChainId = {
 	MAINNET: 1,

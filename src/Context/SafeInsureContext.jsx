@@ -4,8 +4,8 @@ import Wenb3Model from "web3modal";
 import {
 	SafeInsureAddress,
 	SafeInsureABI,
-	// InsuranceProviderABI,
-	// InsuranceContractABI,
+	InsuranceProviderABI,
+	InsuranceContractABI,
 	chainId,
 	supportedChains,
 } from "./constants";
@@ -19,19 +19,19 @@ import { useAuth as arcanaAuth } from "@arcana/auth-react";
 const fetchMainContract = (signerOrProvider) =>
 	new ethers.Contract(SafeInsureAddress, SafeInsureABI, signerOrProvider);
 
-// const fetchInsuranceProvider = (contractAddress, signerOrProvider) =>
-// 	new ethers.Contract(
-// 		contractAddress,
-// 		InsuranceProviderABI,
-// 		signerOrProvider
-// 	);
+const fetchInsuranceProvider = (contractAddress, signerOrProvider) =>
+	new ethers.Contract(
+		contractAddress,
+		InsuranceProviderABI,
+		signerOrProvider
+	);
 
-// const fetchInsuranceContract = (contractAddress, signerOrProvider) =>
-// 	new ethers.Contract(
-// 		contractAddress,
-// 		InsuranceContractABI,
-// 		signerOrProvider
-// 	);
+const fetchInsuranceContract = (contractAddress, signerOrProvider) =>
+	new ethers.Contract(
+		contractAddress,
+		InsuranceContractABI,
+		signerOrProvider
+	);
 
 // const options = {
 // 	activeNetworkId: ChainId.POLYGON_MUMBAI,
@@ -71,13 +71,26 @@ export const SafeInsureProvider = ({ children }) => {
 		}
 	};
 
+	const connectingWithSafeInsureContractForAdmin = async () => {
+		try {
+			const web3Modal = new Wenb3Model();
+			const connection = await web3Modal.connect();
+			const provider = new ethers.providers.Web3Provider(connection);
+			const signer = provider.getSigner();
+			const contract = fetchMainContract(signer);
+			return contract;
+		} catch (error) {
+			console.log("Something went wrong while connecting with contract!");
+		}
+	};
+
 	const connectingWithInsuranceProviderContract = async (contractAddress) => {
 		try {
 			const arcanaProvider = await auth.connect();
 			const provider = new ethers.providers.Web3Provider(arcanaProvider);
 			const signer = provider.getSigner();
-			// const contract = fetchInsuranceProvider(contractAddress, signer);
-			// return contract;
+			const contract = fetchInsuranceProvider(contractAddress, signer);
+			return contract;
 		} catch (error) {
 			console.log("Something went wrong while connecting with contract!");
 		}
@@ -88,8 +101,8 @@ export const SafeInsureProvider = ({ children }) => {
 			const arcanaProvider = await auth.connect();
 			const provider = new ethers.providers.Web3Provider(arcanaProvider);
 			const signer = provider.getSigner();
-			// const contract = fetchInsuranceContract(contractAddress, signer);
-			// return contract;
+			const contract = fetchInsuranceContract(contractAddress, signer);
+			return contract;
 		} catch (error) {
 			console.log("Something went wrong while connecting with contract!");
 		}
@@ -128,12 +141,12 @@ export const SafeInsureProvider = ({ children }) => {
 	};
 
 	const acceptCompany = async (companyAdd) => {
-		const contract = await connectingWithSafeInsureContract();
+		const contract = await connectingWithSafeInsureContractForAdmin();
 		await contract.acceptCompany(companyAdd);
 	};
 
 	const rejectCompany = async (companyAdd) => {
-		const contract = await connectingWithSafeInsureContract();
+		const contract = await connectingWithSafeInsureContractForAdmin();
 		await contract.rejectCompany(companyAdd);
 	};
 
@@ -193,7 +206,7 @@ export const SafeInsureProvider = ({ children }) => {
 	};
 
 	const ownerIs = async () => {
-		const contract = await connectingWithSafeInsureContract();
+		const contract = await connectingWithSafeInsureContractForAdmin();
 		const data = await contract.OwnerIs();
 		return data;
 	};
