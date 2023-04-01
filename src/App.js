@@ -6,9 +6,11 @@ import MainPage from "./pages/MainPage/MainPage";
 import Register from "./pages/Register/Register";
 import RegisterCompany from "./pages/RegisterCompany/RegisterCompany";
 import FarmerDashboard from "./pages/FarmerDashboard/FarmerDashboard";
+import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import InsuranceList from "./pages/InsuranceList/InsuranceList";
 import Insurance from "./pages/Insurance/Insurance";
 import AddFarm from "./pages/AddFarm/Addfarm";
+
 
 const App = () => {
   const router = createBrowserRouter([
@@ -78,6 +80,14 @@ const App = () => {
         </>
       )
     },
+    {
+      path: "/admin",
+			element: (
+				<>
+					<AdminDashboard />
+				</>
+			),
+    }
   ]);
 
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Admin.module.css";
+import styles from "./AdminDashboard.module.css";
 import { useNavigate } from "react-router-dom";
 import { useCallback, useState, useEffect, useRef } from "react";
 import MoonLoader from "react-spinners/MoonLoader";
@@ -10,19 +10,19 @@ import axios from "axios";
 import { useAuth } from "../../Context/AuthContext";
 import { useSafeInsureContext } from "../../Context/SafeInsureContext";
 
-const Admin = () => {
+const AdminDashboard = () => {
   const navigate = useNavigate();
   const { checkIfWalletConnected, currentAccount } = useAuth();
 
   const [requests, setRequests] = useState([]);
   const [owner, setIsOwner] = useState(false);
 
-  const { fetchActiveRequests, acceptCompany, rejectCompany, isOwnerAddress } =
+  const { fetchActiveRequests, acceptCompany, rejectCompany, ownerIs } =
     useSafeInsureContext();
 
   const fetchAdmin = async () => {
     try {
-      var own = await isOwnerAddress();
+      var own = await ownerIs();
       setIsOwner(own);
       console.log(own);
       if (!own) navigate("/register");
@@ -156,4 +156,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default AdminDashboard;
