@@ -243,7 +243,7 @@ contract SafeInsure {
     }
 
     function fetchAllProviders() public view returns (address[] memory) {
-        address[] memory result = new address[](companyCount - 1);
+        address[] memory result = new address[](companyCount);
         for (uint256 i = 1; i <= companyCount; i++) {
             result[i - 1] = address(providers[i]);
         }

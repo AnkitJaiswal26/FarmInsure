@@ -12,17 +12,18 @@ const InsuranceList = () => {
 
 	const { fetchUserByAddress, fetchAllInsurances } = useSafeInsureContext();
 
-	const [ins, setIns] = useState([]);
+	const [insurances, setInsurances] = useState([]);
 	const fetchUser = useCallback(async () => {
 		try {
 			const user = await fetchUserByAddress(currentAccount);
 			console.log(user);
-			const data = fetchAllInsurances();
+			const data = await fetchAllInsurances();
+			console.log(data);
 			if (data) {
-				setIns(data);
+				setInsurances(data);
 			}
 		} catch (err) {
-			navigate("/register");
+			// navigate("/register");
 		}
 	});
 
@@ -46,7 +47,7 @@ const InsuranceList = () => {
 						<h2 className={styles.insuranceListHead}>Insurances</h2>
 						<div className={styles.shadow}></div>
 						<div className={styles.insuranceCards}>
-							{ins.map((val, index) => {
+							{insurances.map((val, index) => {
 								return (
 									<div className={styles.insurance}>
 										<div className={styles.headInsurance}>

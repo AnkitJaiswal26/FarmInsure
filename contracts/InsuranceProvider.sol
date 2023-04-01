@@ -155,5 +155,11 @@ contract InsuranceProvider {
         return result;
     }
 
+    function fetchInsurance(
+        uint256 id
+    ) public view returns (InsuranceType memory) {
+        return insuranceTypes[id];
+    }
+
     receive() external payable {}
 }
