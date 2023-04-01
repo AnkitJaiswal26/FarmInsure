@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect, useCallback} from "react";
 import styles from "./FarmerDashboard.module.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 const FarmerDashboard = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [user, setUser] = useState([]);
 
   const { connectUsingArcana, currentAccount } = useAuth();
 
@@ -69,6 +70,9 @@ const FarmerDashboard = () => {
     }
   }
 
+  const navigateToAddFarm=()=>{
+    navigate("/addfarm");
+  }
   const  [farms, setFarms] = useState([]);
   const  [insurances, setInsurances] = useState([]);
 
@@ -86,7 +90,7 @@ const FarmerDashboard = () => {
           <div className={styles.viewFarms}>
             <div className={styles.farmsHeadBox}>
               <h2 className={styles.farmsHead}>View My Farms</h2>
-              <button className={styles.button2}>Add Farm</button>
+              <button className={styles.button2} onClick={navigateToAddFarm}>Add Farm</button>
             </div>
             <div className={styles.shadow}></div>
             <div className={styles.farmsCards}>
