@@ -59,7 +59,7 @@ contract InsuranceContract is Ownable {
         string memory _cropLocation,
         string memory _cropType
     ) {
-        owner = msg.sender;
+        owner = tx.origin;
         client = _client;
         premium = _premium;
         payoutValue = _payout;
