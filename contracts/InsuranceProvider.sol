@@ -98,7 +98,19 @@ contract InsuranceProvider{
         return i.checkWeather();
     }
 
+    function fetchAllInsuranceContracts()
+        public
+        view
+        onlyOwner
+        returns (address[] memory)
+    {
+        address[] memory result = new address[](contractCount);
+        for (uint256 i = 1; i <= contractCount; i++) {
+            result[i-1] = contractAddresses[i];
+        }
+
+        return result;
+    }
 
     receive() external payable {  }
-
 }

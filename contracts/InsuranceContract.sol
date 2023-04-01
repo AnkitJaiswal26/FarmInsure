@@ -59,6 +59,7 @@ contract InsuranceContract is Ownable {
         string memory _cropLocation,
         string memory _cropType
     ) {
+        owner = msg.sender;
         client = _client;
         premium = _premium;
         payoutValue = _payout;
@@ -139,24 +140,8 @@ contract InsuranceContract is Ownable {
     }
 
     function payout() private validClaimer{
-        client.transfer(payoutValue);
+        
         emit contractPaidOut(block.timestamp, payoutValue);
         toClaimStatus = false;
     }
-
-    function fetchAllInsuranceContracts()
-        public
-        view
-        onlyOwner
-        returns (address[] memory)
-    {
-        address[] memory result = new address[](contractCount);
-        for (uint256 i = 1; i <= contractCount; i++) {
-            result[i-1] = contractAddresses[i];
-        }
-
-        return result;
-    }
-
-
 }
