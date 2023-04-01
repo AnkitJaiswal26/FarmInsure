@@ -8,6 +8,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }) => {
 	const [currentAccount, setCurrentAccount] = useState("");
+	const [email, setEmail] = useState("");
 
 	const auth = arcanaAuth();
 
@@ -23,6 +24,7 @@ export const AuthContextProvider = ({ children }) => {
 	useEffect(() => {
 		if (auth.user) {
 			console.log(auth);
+			setEmail(auth.user.id);
 			setCurrentAccount(auth.user.address);
 		}
 	}, [auth]);
@@ -50,6 +52,7 @@ export const AuthContextProvider = ({ children }) => {
 				checkIfWalletConnected,
 				connectUsingArcana,
 				currentAccount,
+				email,
 			}}
 		>
 			{children}
