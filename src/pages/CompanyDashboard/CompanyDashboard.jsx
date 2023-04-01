@@ -38,8 +38,10 @@ const CompanyDashboard = () => {
 
       const contractAddress = await fetchInsuranceAddress();
 
-      // console.log(data);
-      // setInsurances(data);
+      const data = await fetchMyInsList(contractAddress);
+
+      console.log(data);
+      setInsurances(data);
     } catch (err) {
       navigate("/register");
     }
