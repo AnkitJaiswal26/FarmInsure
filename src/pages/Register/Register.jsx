@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./Register.module.css";
 import { useNavigate } from "react-router-dom";
 import fvector from "../../images/fvector.jpg";
 import ivector from "../../images/ivector.jpg";
 
 const Register = () => {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
 
   const handleRegisterFarmer = async (e) => {
@@ -18,8 +21,8 @@ const Register = () => {
   };
   return (
     <div className={styles.mainContainer}>
-      <h1 className={styles.mainHeading}>Choose your Identity</h1>
-      <h1 className={styles.secondaryHeading}>Register as</h1>
+      <h1 className={styles.mainHeading}>{t("identity")}</h1>
+      <h1 className={styles.secondaryHeading}>{t("register_as")}</h1>
       <div className={styles.buttonOptions}>
         <div className={styles.imagebuttongroups}>
           {/* <div className={styles.img}> */}
@@ -27,7 +30,7 @@ const Register = () => {
           {/* </div> */}
           <button className={styles.registerBtn} onClick={handleRegisterFarmer}>
             <>
-              Farmer
+              {t("farmer")}
               {/* <ArrowForwardIcon className={styles.arrowForwardIcon} /> */}
             </>
           </button>
@@ -41,7 +44,7 @@ const Register = () => {
             onClick={handleRegisterInsuranceCompany}
           >
             <>
-              Insurance Company
+              {t("insurance")}
               {/* <ArrowForwardIcon className={styles.arrowForwardIcon} /> */}
             </>
           </button>
