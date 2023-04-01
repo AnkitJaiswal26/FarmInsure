@@ -2,7 +2,6 @@
 pragma solidity ^0.8.9;
 
 import "./InsuranceContract.sol";
-import "hardhat/console.sol";
 
 // import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 // import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
@@ -13,8 +12,8 @@ import "hardhat/console.sol";
 contract InsuranceProvider {
     address insurer;
     uint contractCount;
-    mapping(address => InsuranceContract) public contracts;
-    mapping(uint => address) public contractAddresses;
+    mapping(address => InsuranceContract) contracts;
+    mapping(uint => address) contractAddresses;
 
     event contractCreated(
         address _insuranceContract,
@@ -115,6 +114,11 @@ contract InsuranceProvider {
         return i.toClaimStatus();
     }
 
+    function getRainfall(address _address) external view returns (uint256) {
+        InsuranceContract i = InsuranceContract(_address);
+        return i.volume();
+    }
+    
     // function notify() public view onlyOwner returns (InsuranceContract[] memory){
 
     //     uint count = 0;
