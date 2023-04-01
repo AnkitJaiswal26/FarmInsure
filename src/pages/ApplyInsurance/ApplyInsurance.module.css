@@ -1,0 +1,204 @@
+.mainContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    align-items: center;
+    background-image: linear-gradient(#66D2CC, #3062F3);
+    text-align: center;
+}
+.secondContainer{
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 1.8rem;
+    background-color: #ffffff;
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #1C5253;
+    transition: all 0.5s ease;
+    box-shadow: 0px 1px 8px #000000;
+    width: 50%;
+    /* opacity: 0.8; */
+    /* filter: blur(8px); */
+}
+.formBox {
+	padding: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transition: 0.5s;
+    position: relative;
+    z-index: 0;
+}
+.heading {
+	font-weight: 700;
+	text-align: center;
+	width: 100%;
+	color: #1C5253;
+	margin-bottom: 20px;
+}
+
+.header {
+	font-size: 1.4rem;
+	text-align: center;
+    font-family: 'Alkatra', cursive;
+    width: 100%;
+    color: #231123;
+	margin-bottom: 20px;
+}
+
+.inputContainer, .inputContainer2 {
+    display: flex;
+    flex-direction: column;
+    width: 330px;
+}
+.fileUploadContainer{
+    width: 100%;
+    outline: none;
+    border: 1px white solid;
+    margin: 0.1rem;
+    font-size: 1.1rem;
+    border-radius: 0.4rem;
+    box-shadow: 0px 1px 5px black;
+}
+
+.inputContainer2{
+    flex-direction: row;
+}
+
+.inputLabel {
+    font-size: 1.1rem;
+    color: #090446;
+    font-weight: 600;
+    padding: 20px 0px 0px 0px;
+    margin: 5px;
+    width: 100%;
+    text-align: left;
+}
+
+.input, .modalInput {
+    width: 100%;
+    padding: 12px 12px;
+    outline: none;
+    border: 1px white solid;
+    margin: 0.1rem;
+    font-size: 1.1rem;
+    background-color: #FAFAFA;
+    border-radius: 0.4rem;
+    box-shadow: 0px 1px 5px black;
+}
+.modalInput{
+    padding: 6px 1px;
+}
+
+
+.registerBtn, .submitButton, .submitOtpButton{
+    margin: auto;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 1.8rem;
+    background-image: linear-gradient(#3062F3, #090446);
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    transition: all 0.5s ease;
+    box-shadow: 0px 1px 10px #12196c;
+}
+
+.registerBtn:hover, .submitButton:hover, .submitOtpButton:hover{
+    background-image: linear-gradient(#3062F3, #090446);
+    transform: scale(1.02);
+}
+
+.submitOtpButton{
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+}
+.verifyButton{
+    margin: auto;
+    margin-left: 3rem;
+    margin-right: -1.6rem;
+    margin-bottom: 0rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 1.8rem;
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
+}
+
+.loader{
+    align-self: center;
+}
+
+/* .submitButton:hover{
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
+    color: black;
+}
+.submitButton{
+    width: 50%;
+    padding: 0.8rem 1rem;
+    border: none;
+} */
+
+@media only screen and (max-width: 500px) {
+    .inputContainer {
+        width: 80%;
+    }
+    .inputContainer2{
+        width: 80%;
+
+    }
+}
+.modalContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: #231123; */
+    /* position: fixed; */
+    /* z-index: 1000; */
+}
+
+.closeButton{
+    background-color: transparent;
+    padding: 0.3rem 0.5rem;
+    align-self: flex-end;
+    font-size: 0.9rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    border: none;
+    /* width: 10%; */
+}
+
+.chooseFileBtn{
+    width: 100%;
+    padding: 0.8rem 0.6rem;
+    border-radius: 0.5rem;
+    background-color: #FAFAFA;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin: 0.1rem;
+    color: rgb(45, 45, 45);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+.chooseFileInput{
+    display: none;
+}
