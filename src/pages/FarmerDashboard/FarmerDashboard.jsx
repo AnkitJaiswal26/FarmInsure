@@ -1,3 +1,4 @@
+import {useState} from "react";
 import styles from "./FarmerDashboard.module.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -16,7 +17,8 @@ const FarmerDashboard = () => {
 		connectUsingArcana();
 		if (currentAccount) {
 			fetchUser();
-			fetchFarmInsurances();
+			fetchFarms();
+      fetchInsurances();
 		}
 	}, [currentAccount]);
 
@@ -24,7 +26,8 @@ const FarmerDashboard = () => {
     registerUser,
     fetchUserByAddress,
     fetchUserFarms,
-    fetchAllCompanies
+    fetchAllCompanies,
+    fetchAllInsurances
    } = useSafeInsureContext();
 
   const fetchUser = useCallback(async () => {
@@ -43,27 +46,11 @@ const FarmerDashboard = () => {
     navigate("/insurances");
   };
 
-  const fetchFarmInsurances = async()=>{
+  const fetchFarms = async()=>{
       try{
           const companies = await fetchAllCompanies();
           console.log(companies);
-          var result = [];
-          const t = await fetchUserFarms();
-
-          // for(let i=0; i< companies.length; i++){
-          //   console.log(t);
-          //   for(let j=0; j<t.length; j++){
-          //     const farm = await fetchFarmById(companies[i], t[j].farmId);
-          //     result.push({
-          //       userId: farm.userId,
-          //       location: farm.location,
-          //       landArea: farm.landArea,
-          //       cropType: farm.cropType,
-          //       ipfsHash: farm.ipfsHash,
-          //       fileName: farm.fileName
-          //     })
-          //   }
-          // }
+          const result = await fetchUserFarms();
           setFarms(result);
           console.log(companies);
       }catch (err){
@@ -71,7 +58,20 @@ const FarmerDashboard = () => {
       }
   }
 
+  const fetchInsurances = async()=> {
+    try{
+          const data = await fetchAllInsurances();
+          console.log(data);
+          setInsurances(data);
+
+    }catch (err){
+      console.log(err);
+    }
+  }
+
   const  [farms, setFarms] = useState([]);
+  const  [insurances, setInsurances] = useState([]);
+
   return (
     <>
       <div className={styles.dashboardMain}>
@@ -90,6 +90,7 @@ const FarmerDashboard = () => {
             </div>
             <div className={styles.shadow}></div>
             <div className={styles.farmsCards}>
+
               <div className={styles.farm}>
                 <div className={styles.headFarm}>FileName</div>
                 <div className={styles.details}>
@@ -102,18 +103,30 @@ const FarmerDashboard = () => {
                   CropType: <span className={styles.values}>Rabi</span>
                 </div>
               </div>
-              <div className={styles.farm}>
-                <div className={styles.headFarm}>FileName</div>
-                <div className={styles.details}>
-                  Location: <span className={styles.values}>Bhusawal</span>
-                </div>
-                <div className={styles.details}>
-                  LandArea: <span className={styles.values}>1 acre</span>
-                </div>
-                <div className={styles.details}>
-                  CropType: <span className={styles.values}>Kharif</span>
-                </div>
-              </div>
+
+              {farms.length >0 ? (
+                farms.map((item,index)=>{
+                  <>
+                  <div className={styles.farm}>
+                    <div className={styles.headFarm}>{item.fileName}</div>
+                    <div className={styles.details}>
+                      Location: <span className={styles.values}>{item.location}</span>
+                    </div>
+                    <div className={styles.details}>
+                      LandArea: <span className={styles.values}>{item.landArea}</span>
+                    </div>
+                    <div className={styles.details}>
+                      CropType: <span className={styles.values}>{item.cropType}</span>
+                    </div>
+                  </div>
+                  </>
+                }
+                )
+              ):(
+                <span className={styles.emptyListMessage}>
+                    No Farms found
+              </span>)}
+
             </div>
           </div>
           <div className={styles.viewInsurances}>
@@ -142,6 +155,27 @@ const FarmerDashboard = () => {
                 <div className={styles.details}>
                   Next Due: <span className={styles.values}>7th April</span>
                 </div>
+                { insurances.length >0 ?(
+                insurances.map((item,index)=>{
+                  return <>
+
+                  <div className={styles.headInsurance}>Insurance</div>
+                    <div className={styles.details}>
+                      Period: <span className={styles.values}>{item.duration}</span>
+                    </div>
+                    <div className={styles.details}>
+                      Premium paid : <span className={styles.values}>{item.premium}</span>
+                    </div>
+                    <div className={styles.details}>
+                      Next Due: <span className={styles.values}>10th April</span>
+                    </div>
+                  </>
+                })
+                ):(
+                   <span className={styles.emptyListMessage}>
+                   Insurances found
+             </span>
+                )}
               </div>
             </div>
           </div>
