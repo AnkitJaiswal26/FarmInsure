@@ -19,7 +19,7 @@ contract InsuranceProvider{
     mapping (uint => address) public contractAddresses;
 
     event contractCreated(address _insuranceContract, uint _premium, uint _payout);
-
+    event claimStatus(bool _claimStatus);
 
     modifier onlyOwner{
         require(msg.sender == insurer, "Only Insurance Provider can do this");
@@ -33,7 +33,8 @@ contract InsuranceProvider{
     }
 
     function newContract(address payable _client, uint _premium, uint _payout, uint _duration, string memory _cropLocation, string memory _cropType ) 
-    public    onlyOwner
+    public    
+    onlyOwner
     {   
         contractCount++;
 
@@ -64,26 +65,39 @@ contract InsuranceProvider{
         return i.getContractStatus();
     }
 
-    function notify() public view onlyOwner returns (InsuranceContract[] memory){
-
-        uint count = 0;
-        for(uint i = 1; i <= contractCount; i++)
-        {
-            if(contracts[contractAddresses[i]].toClaimStatus() == true)
-                count++;
-        }
-
-        InsuranceContract[] memory result = new InsuranceContract[](count);
-        for (uint i = 1; i <= count; i++) 
-        {
-            if(contracts[contractAddresses[i]].toClaimStatus() == true)
-            {
-                InsuranceContract cur = contracts[contractAddresses[i]];
-                result[i] = cur;
-            }
-        }
-        return result;
+    function getClaimStatus(address _address) external view returns (bool) {
+        InsuranceContract i = InsuranceContract(_address);
+        return i.toClaimStatus();
     }
+
+
+    // function notify() public view onlyOwner returns (InsuranceContract[] memory){
+
+    //     uint count = 0;
+    //     for(uint i = 1; i <= contractCount; i++)
+    //     {
+    //         if(contracts[contractAddresses[i]].toClaimStatus() == true)
+    //             count++;
+    //     }
+
+    //     InsuranceContract[] memory result = new InsuranceContract[](count);
+    //     for (uint i = 1; i <= count; i++) 
+    //     {
+    //         if(contracts[contractAddresses[i]].toClaimStatus() == true)
+    //         {
+    //             InsuranceContract cur = contracts[contractAddresses[i]];
+    //             result[i] = cur;
+    //         }
+    //     }
+    //     return result;
+    // }
+
+    function checkWeather(address _address) external returns (bool)
+    {   
+        InsuranceContract i = InsuranceContract(_address);
+        return i.checkWeather();
+    }
+
 
     receive() external payable {  }
 

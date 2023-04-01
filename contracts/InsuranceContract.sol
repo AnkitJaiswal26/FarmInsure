@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract InsuranceContract is Ownable {
     address payable owner;
-    address payable public client;
+    address payable client;
     uint public premium;
     uint public payoutValue;
     uint startDate;
@@ -72,11 +72,11 @@ contract InsuranceContract is Ownable {
         requestCount = 0;
         premiumPayment = PaymentPremium({
             months: duration,
-        totalAmount: premium,
-        remainingAmount: premium, // ? do no 
-        currentMonth: 1,
-        monthDate: block.timestamp + 30 days,
-        lastPaymentDate: block.timestamp
+            totalAmount: premium,
+            remainingAmount: premium - msg.value, // ? do no 
+            currentMonth: 1,
+            monthDate: block.timestamp + 30 days,
+            lastPaymentDate: block.timestamp
         });
     }
 
