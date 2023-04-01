@@ -275,6 +275,54 @@ export const SafeInsureProvider = ({ children }) => {
 		return data;
 	};
 
+	const fetchAllInsurances = async () => {
+		const contract = await connectingWithSafeInsureContract();
+		const providers = await contract.fetchAllProviders();
+		const companies = await contract.fetchAllCompanies();
+
+		var result = [];
+		for (let i = 0; i < providers.length; i++) {
+			const newContract = await connectingWithInsuranceProviderContract(
+				providers[i]
+			);
+			const temp = await newContract.fetchInsTypes();
+
+			for (let j = 0; j < temp.length; j++) {
+				result.push({
+					contractAddress: providers[i],
+					companyAdd: companies[i].comAdd,
+					name: companies[i].name,
+					cin: companies[i].cin,
+					id: temp[j].id,
+					premium: temp[j].premium,
+					payout: temp[j].payout,
+					duration: temp[j].duration,
+				});
+			}
+		}
+		return result;
+	};
+
+	const fetchMyInsList = async (contractAdd) => {
+		const contract = await connectingWithInsuranceProviderContract(
+			contractAdd
+		);
+		const data = await contract.fetchInsTypes();
+		return data;
+	};
+
+	const addNewInsuranceType = async (
+		contractAdd,
+		premium,
+		payout,
+		duration
+	) => {
+		const contract = await connectingWithInsuranceProviderContract(
+			contractAdd
+		);
+		await contract.addInsType(premium, payout, duration);
+	};
+
 	return (
 		<SafeInsureContext.Provider
 			value={{
@@ -291,6 +339,9 @@ export const SafeInsureProvider = ({ children }) => {
 				fetchUserFarms,
 				ownerIs,
 				uploadFilesToIPFS,
+				fetchAllInsurances,
+				addNewInsuranceType,
+				fetchMyInsList,
 			}}
 		>
 			{children}
