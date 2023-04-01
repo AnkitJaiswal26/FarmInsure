@@ -10,6 +10,11 @@ import { useAuth } from "../../Context/AuthContext";
 const Insurance = () => {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
+	const [insurance, setInsurance] = useState({premium: 100,
+		payout: 1000,
+		duration: 1,
+		cropLoc: "Bhusawal",
+		cropType: "Kharif"})
 
 	const navigateInsurances = () => {
 		navigate("/insurances");
@@ -25,7 +30,7 @@ const Insurance = () => {
 				const user = await fetchUserByAddress(currentAccount);
 				console.log(user);
 			} catch (err) {
-				navigate("/register");
+				navigate("/registerfarmer");
 				console.log("User cannot be fetched");
 			}
 		});

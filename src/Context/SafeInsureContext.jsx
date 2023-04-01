@@ -349,6 +349,7 @@ export const SafeInsureProvider = ({ children }) => {
 				addNewInsuranceType,
 				fetchMyInsList,
 				fetchInsuranceAddress,
+				newContract
 			}}
 		>
 			{children}
