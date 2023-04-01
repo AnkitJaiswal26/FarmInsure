@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract InsuranceContract is Ownable {
     address payable owner;
-    address public client;
+    address payable public client;
     uint public premium;
     uint public payoutValue;
     uint startDate;
@@ -27,11 +27,11 @@ contract InsuranceContract is Ownable {
         uint256 currentMonth;
         uint256 monthDate;
         uint256 lastPaymentDate;
-    };
+    }
 
     PaymentPremium premiumPayment;
 
-    // To DO  
+    // To DO
     uint public constant DROUGHT_DAYS_THRESHOLD = 3;
     uint public constant HOT_DAYS_THRESHOLD = 3;
     uint public constant CLAIM_FILING_PERIOD = 15;
@@ -52,11 +52,12 @@ contract InsuranceContract is Ownable {
     event contractPaidOut(uint time,uint payoutValue);
 
     constructor(
-        address _client,
+        address payable _client,
         uint _premium,
         uint _payout,
         uint _duration,
-        string memory _cropLocation
+        string memory _cropLocation,
+        string memory _cropType
     ) {
         client = _client;
         premium = _premium;
@@ -70,13 +71,13 @@ contract InsuranceContract is Ownable {
         toClaimStatus = false;
         requestCount = 0;
         premiumPayment = PaymentPremium({
-            months: months,
+            months: duration,
         totalAmount: premium,
-        remainingAmount: premium,
+        remainingAmount: premium, // ? do no 
         currentMonth: 1,
         monthDate: block.timestamp + 30 days,
-        lastPaymentDate: block.timestamp,
-        })
+        lastPaymentDate: block.timestamp
+        });
     }
 
     function getContractStatus() public view onlyOwner returns(bool)
@@ -142,4 +143,6 @@ contract InsuranceContract is Ownable {
         emit contractPaidOut(block.timestamp, payoutValue);
         toClaimStatus = false;
     }
+
+
 }
