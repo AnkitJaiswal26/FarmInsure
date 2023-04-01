@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-
-contract InsuranceContract is Ownable {
+contract InsuranceContract {
     address payable owner;
     address payable client;
     uint public premium;
@@ -42,24 +40,28 @@ contract InsuranceContract is Ownable {
         _;
     }
 
-    modifier validClaimer{
-        require((block.timestamp - claimStartDate)/(DAY_IN_SECONDS) <= CLAIM_FILING_PERIOD );
+    modifier validClaimer() {
+        require(
+            (block.timestamp - claimStartDate) / (DAY_IN_SECONDS) <=
+                CLAIM_FILING_PERIOD
+        );
         _;
     }
 
     event rainfallThresholdReset(uint _curRainfall);
     event hotDaysThresholdReset(uint _curTemp);
-    event contractPaidOut(uint time,uint payoutValue);
+    event contractPaidOut(uint time, uint payoutValue);
 
     constructor(
+        address _owner,
         address payable _client,
         uint _premium,
         uint _payout,
         uint _duration,
         string memory _cropLocation,
         string memory _cropType
-    ) {
-        owner = tx.origin;
+    ) payable {
+        owner = payable(_owner);
         client = _client;
         premium = _premium;
         payoutValue = _payout;
@@ -74,63 +76,75 @@ contract InsuranceContract is Ownable {
         premiumPayment = PaymentPremium({
             months: duration,
             totalAmount: premium,
-            remainingAmount: premium - msg.value, // ? do no 
+            remainingAmount: premium - msg.value, // ? do no
             currentMonth: 1,
             monthDate: block.timestamp + 30 days,
             lastPaymentDate: block.timestamp
         });
     }
 
-    function getContractStatus() public view onlyOwner returns(bool)
-    {
+    function getContractStatus() public view returns (bool) {
         return contractActive;
     }
 
     function checkWeather() public onContractActive {
-
         uint normal_rainfall = 150;
         uint current_rainfall;
         uint normal_temperature = 30;
         uint current_temperature;
 
         /* Checking rainfall conditions */
-        if(keccak256(abi.encodePacked(cropType)) == keccak256(abi.encodePacked("Rabi"))){
+        if (
+            keccak256(abi.encodePacked(cropType)) ==
+            keccak256(abi.encodePacked("Rabi"))
+        ) {
             current_temperature = 40;
             current_rainfall = 400;
-        }
-        else if(keccak256(abi.encodePacked(cropType)) == keccak256(abi.encodePacked("Kharif"))){
+        } else if (
+            keccak256(abi.encodePacked(cropType)) ==
+            keccak256(abi.encodePacked("Kharif"))
+        ) {
             current_rainfall = 100;
         }
 
         requestCount += 1;
 
-          //check if payout conditions have been met, if so call payoutcontract, which should also end/kill contract at the end
+        //check if payout conditions have been met, if so call payoutcontract, which should also end/kill contract at the end
 
-        if(keccak256(abi.encodePacked(cropType)) == keccak256(abi.encodePacked("Kharif"))){
-            if (current_rainfall < normal_rainfall) { //temp threshold has been  met, add a day of over threshold
+        if (
+            keccak256(abi.encodePacked(cropType)) ==
+            keccak256(abi.encodePacked("Kharif"))
+        ) {
+            if (current_rainfall < normal_rainfall) {
+                //temp threshold has been  met, add a day of over threshold
                 daysWithoutRain += 1;
             } else {
                 //there was rain today, so reset daysWithoutRain parameter
                 daysWithoutRain = 0;
                 emit rainfallThresholdReset(current_rainfall);
             }
-            if (daysWithoutRain >= DROUGHT_DAYS_THRESHOLD) {  // day threshold has been met
+            if (daysWithoutRain >= DROUGHT_DAYS_THRESHOLD) {
+                // day threshold has been met
                 /* need to pay client out insurance amount*/
                 toClaimStatus = true;
                 claimStartDate = block.timestamp;
                 // notify();
             }
-        }else if(keccak256(abi.encodePacked(cropType)) == keccak256(abi.encodePacked("Rabi"))){
-            if(current_temperature > normal_temperature || current_rainfall > normal_rainfall){
+        } else if (
+            keccak256(abi.encodePacked(cropType)) ==
+            keccak256(abi.encodePacked("Rabi"))
+        ) {
+            if (
+                current_temperature > normal_temperature ||
+                current_rainfall > normal_rainfall
+            ) {
                 hotDays += 1;
-            }
-            else {
+            } else {
                 hotDays = 0;
                 emit hotDaysThresholdReset(current_temperature);
             }
 
-            if (hotDays >= HOT_DAYS_THRESHOLD)
-            {
+            if (hotDays >= HOT_DAYS_THRESHOLD) {
                 /* need to pay client out insurance amount */
                 toClaimStatus = true;
                 claimStartDate = block.timestamp;
@@ -139,8 +153,7 @@ contract InsuranceContract is Ownable {
         }
     }
 
-    function payout() private validClaimer{
-        
+    function payout() private validClaimer {
         emit contractPaidOut(block.timestamp, payoutValue);
         toClaimStatus = false;
     }

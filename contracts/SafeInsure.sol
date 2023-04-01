@@ -100,7 +100,7 @@ contract SafeInsure {
         companyAddressToIdMapping[companyAdd] = companyCount;
 
         // TODO: add provider
-        providers[companyCount] = new InsuranceProvider();
+        providers[companyCount] = new InsuranceProvider(companyAdd);
 
         companyRequestMapping[
             companyAddressToIdRequestMapping[companyAdd]

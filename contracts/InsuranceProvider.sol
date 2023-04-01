@@ -10,44 +10,89 @@ import "hardhat/console.sol";
 // import "@chainlink/contracts/src/v0.8/interfaces/AggregatorInterface.sol";
 // import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-
-contract InsuranceProvider{
-
+contract InsuranceProvider {
     address insurer;
     uint contractCount;
-    mapping (address => InsuranceContract) public contracts;
-    mapping (uint => address) public contractAddresses;
+    mapping(address => InsuranceContract) public contracts;
+    mapping(uint => address) public contractAddresses;
 
-    event contractCreated(address _insuranceContract, uint _premium, uint _payout);
+    event contractCreated(
+        address _insuranceContract,
+        uint _premium,
+        uint _payout
+    );
+
+    struct InsuranceType {
+        uint256 id;
+        uint256 premium;
+        uint256 payout;
+        uint256 duration;
+    }
+
+    uint256 insCount;
+
+    mapping(uint256 => InsuranceType) insuranceTypes;
+
     event claimStatus(bool _claimStatus);
 
-    modifier onlyOwner{
+    modifier onlyOwner() {
         require(msg.sender == insurer, "Only Insurance Provider can do this");
         _;
     }
 
-    constructor() public
-    {
-        insurer = msg.sender;
-        contractCount=0;
+    constructor(address owner) {
+        insurer = owner;
     }
 
-    function newContract(address payable _client, uint _premium, uint _payout, uint _duration, string memory _cropLocation, string memory _cropType ) 
-    public    
-    onlyOwner
-    {   
+    function addInsType(uint _premium, uint _payout, uint _duration) public {
+        insuranceTypes[insCount] = InsuranceType({
+            id: insCount,
+            premium: _premium,
+            payout: _payout,
+            duration: _duration
+        });
+        insCount++;
+    }
+
+    function fetchInsTypes() public view returns (InsuranceType[] memory) {
+        InsuranceType[] memory result = new InsuranceType[](insCount);
+        for (uint256 i = 0; i < insCount; i++) {
+            result[i] = insuranceTypes[i];
+        }
+
+        return result;
+    }
+
+    function newContract(
+        address payable _client,
+        uint _premium,
+        uint _payout,
+        uint _duration,
+        string memory _cropLocation,
+        string memory _cropType
+    ) public onlyOwner {
         contractCount++;
 
-        InsuranceContract i = new InsuranceContract(_client, _premium, _payout, _duration, _cropLocation, _cropType);
+        InsuranceContract i = new InsuranceContract(
+            insurer,
+            _client,
+            _premium,
+            _payout,
+            _duration,
+            _cropLocation,
+            _cropType
+        );
         contracts[address(i)] = i;
         contractAddresses[contractCount] = address(i);
 
-        emit contractCreated(address(i),_premium,_payout);
+        emit contractCreated(address(i), _premium, _payout);
     }
 
     // GETTERS
 
-    function getContract(address _contract) external view returns (InsuranceContract) {
+    function getContract(
+        address _contract
+    ) external view returns (InsuranceContract) {
         return contracts[_contract];
     }
 
@@ -70,7 +115,6 @@ contract InsuranceProvider{
         return i.toClaimStatus();
     }
 
-
     // function notify() public view onlyOwner returns (InsuranceContract[] memory){
 
     //     uint count = 0;
@@ -81,7 +125,7 @@ contract InsuranceProvider{
     //     }
 
     //     InsuranceContract[] memory result = new InsuranceContract[](count);
-    //     for (uint i = 1; i <= count; i++) 
+    //     for (uint i = 1; i <= count; i++)
     //     {
     //         if(contracts[contractAddresses[i]].toClaimStatus() == true)
     //         {
@@ -92,10 +136,9 @@ contract InsuranceProvider{
     //     return result;
     // }
 
-    function checkWeather(address _address) external returns (bool)
-    {   
+    function checkWeather(address _address) external {
         InsuranceContract i = InsuranceContract(_address);
-        return i.checkWeather();
+        i.checkWeather();
     }
 
     function fetchAllInsuranceContracts()
@@ -106,11 +149,11 @@ contract InsuranceProvider{
     {
         address[] memory result = new address[](contractCount);
         for (uint256 i = 1; i <= contractCount; i++) {
-            result[i-1] = contractAddresses[i];
+            result[i - 1] = contractAddresses[i];
         }
 
         return result;
     }
 
-    receive() external payable {  }
+    receive() external payable {}
 }
