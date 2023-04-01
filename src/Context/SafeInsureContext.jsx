@@ -163,7 +163,7 @@ export const SafeInsureProvider = ({ children }) => {
 	};
 
 	const fetchActiveRequests = async () => {
-		const contract = await connectingWithSafeInsureContract();
+		const contract = await connectingWithSafeInsureContractForAdmin();
 		const data = await contract.fetchActiveRequests();
 		return data;
 	};

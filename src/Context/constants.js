@@ -4,7 +4,7 @@ import safeInsure from "../artifacts/contracts/SafeInsure.sol/SafeInsure.json";
 import insuranceProvider from "../artifacts/contracts/InsuranceProvider.sol/InsuranceProvider.json";
 import insuranceContract from "../artifacts/contracts/InsuranceContract.sol/InsuranceContract.json";
 
-export const SafeInsureAddress = "0x843d15538d110A77f362E9D26caa3A8aBFC82fb2";
+export const SafeInsureAddress = "0xFBeDF692948d69245688BA0E049Bbf0DC421704b";
 export const SafeInsureABI = safeInsure.abi;
 
 export const InsuranceProviderABI = insuranceProvider.abi;

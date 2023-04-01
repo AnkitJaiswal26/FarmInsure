@@ -158,7 +158,7 @@ contract SafeInsure {
         Company[] memory result = new Company[](companyRequestCount);
         for (uint256 i = 1; i <= companyRequestCount; i++) {
             Company storage cur = companyRequestMapping[i];
-            result[i] = cur;
+            result[i - 1] = cur;
         }
 
         return result;
@@ -173,7 +173,7 @@ contract SafeInsure {
         Company[] memory result = new Company[](companyCount);
         for (uint256 i = 1; i <= companyCount; i++) {
             Company storage cur = companyMapping[i];
-            result[i] = cur;
+            result[i - 1] = cur;
         }
 
         return result;
