@@ -51,6 +51,7 @@ contract InsuranceContract {
     event rainfallThresholdReset(uint _curRainfall);
     event hotDaysThresholdReset(uint _curTemp);
     event contractPaidOut(uint time, uint payoutValue);
+    event premiumPaid(uint time,uint premium);
 
     constructor(
         address _owner,
@@ -153,8 +154,23 @@ contract InsuranceContract {
         }
     }
 
-    function payout() private validClaimer {
+    function payout() private validClaimer{
+        payable(address(this)).transfer(msg.value);
+        client.transfer(payoutValue);
         emit contractPaidOut(block.timestamp, payoutValue);
         toClaimStatus = false;
+    }
+
+    function payPremium (uint256 premiumVal) public payable {
+        payable(address(this)).transfer(msg.value);
+        payable(owner).transfer(premiumVal);
+
+        premiumPayment.remainingAmount = premium - msg.value;
+        premiumPayment.currentMonth++;
+        premiumPayment.monthDate = block.timestamp + 30 days;
+        premiumPayment.lastPaymentDate = block.timestamp;
+        // payable (this).transfer();
+
+        emit premiumPaid(block.timestamp, premium);
     }
 }
