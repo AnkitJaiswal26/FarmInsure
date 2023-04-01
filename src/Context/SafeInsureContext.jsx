@@ -198,6 +198,60 @@ export const SafeInsureProvider = ({ children }) => {
 		return data;
 	};
 
+	const newContract = async (
+		contractAddress,
+		client,
+		premium,
+		payout,
+		duration,
+		cropLoc,
+		cropType
+	) => {
+		const contract = await connectingWithInsuranceProviderContract(
+			contractAddress
+		);
+		await contract.newContract(
+			client,
+			premium,
+			payout,
+			duration,
+			cropLoc,
+			cropType
+		);
+	};
+
+	const getInsurer = async (contractAddress) => {
+		const contract = await connectingWithInsuranceProviderContract(
+			contractAddress
+		);
+		const data = await contract.getInsurer();
+		return data;
+	};
+
+	const getContractBalance = async (contractAddress) => {
+		const contract = await connectingWithInsuranceProviderContract(
+			contractAddress
+		);
+		const data = await contract.getContractBalance();
+		return data;
+	};
+
+	const getContractStatus = async (contractAddress, address) => {
+		const contract = await connectingWithInsuranceProviderContract(
+			contractAddress
+		);
+		const data = await contract.getContractStatus(address);
+		return data;
+	};
+
+	const getClaimStatus = async (contractAddress, address) => {
+		const contract = await connectingWithInsuranceProviderContract(
+			contractAddress
+		);
+		const data = await contract.getClaimStatus(address);
+		return data;
+	};
+
 	return (
 		<SafeInsureContext.Provider
 			value={{

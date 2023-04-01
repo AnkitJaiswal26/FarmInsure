@@ -241,4 +241,13 @@ contract SafeInsure {
     function fetchInsuranceAddress() public view returns (address) {
         return address(providers[companyAddressToIdMapping[msg.sender]]);
     }
+
+    function fetchAllProviders() public view returns (address[] memory) {
+        address[] memory result = new address[](companyCount - 1);
+        for (uint256 i = 1; i <= companyCount; i++) {
+            result[i - 1] = address(providers[i]);
+        }
+
+        return result;
+    }
 }
