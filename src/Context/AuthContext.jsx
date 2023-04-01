@@ -47,8 +47,8 @@ export const AuthContextProvider = ({ children }) => {
 	return (
 		<AuthContext.Provider
 			value={{
-				checkIfWalletConnected,
-				// connectUsingArcana,
+				// checkIfWalletConnected,
+				connectUsingArcana,
 				currentAccount,
 			}}
 		>
