@@ -38,7 +38,7 @@ const RegisterCompany = () => {
 		} catch (err) {
 			const data = await fetchActiveRequests();
 			console.log(data);
-			console.log("User cann/ot be fetched");
+			console.log("User cannot be fetched");
 		}
 	});
 	const handleDocFileChange = (e) => {

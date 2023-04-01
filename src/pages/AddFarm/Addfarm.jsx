@@ -41,6 +41,7 @@ const AddFarm = () => {
 		setDocFileName(e.target.files[0].name);
 		setDocFile(e.target.files);
 	};
+	
 	const fetchUser = useCallback(async () => {
 		try {
 			const user = await fetchUserByAddress(currentAccount);
