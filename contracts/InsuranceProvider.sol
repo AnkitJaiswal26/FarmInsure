@@ -11,42 +11,50 @@ import "hardhat/console.sol";
 // import "@chainlink/contracts/src/v0.8/interfaces/AggregatorInterface.sol";
 // import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-
-contract InsuranceProvider{
-
+contract InsuranceProvider {
     address insurer;
-    mapping (address => InsuranceContract) public contracts; 
+    mapping(address => InsuranceContract) public contracts;
 
-    event contractCreated(address _insuranceContract, uint _premium, uint _payout);    
+    event contractCreated(
+        address _insuranceContract,
+        uint _premium,
+        uint _payout
+    );
 
-
-    modifier onlyOwner{
+    modifier onlyOwner() {
         require(msg.sender == insurer, "Only Insurance Provider can do this");
         _;
     }
 
-    constructor() public
-    {
+    constructor() public {
         insurer = msg.sender;
     }
 
-    function newContract(address _client, uint _premium, uint _payout, uint _duration, string memory _cropLocation ) 
-    public
-    onlyOwner
-    {
-        InsuranceContract i = new InsuranceContract(_client, _premium, _payout, _duration, _cropLocation);
-        
-        contracts[address(i)] = i;
-        
-        emit contractCreated(address(i),_premium,_payout);
-        
-        
+    function newContract(
+        address _client,
+        uint _premium,
+        uint _payout,
+        uint _duration,
+        string memory _cropLocation
+    ) public onlyOwner {
+        InsuranceContract i = new InsuranceContract(
+            _client,
+            _premium,
+            _payout,
+            _duration,
+            _cropLocation
+        );
 
+        contracts[address(i)] = i;
+
+        emit contractCreated(address(i), _premium, _payout);
     }
 
     // GETTERS
 
-    function getContract(address _contract) external view returns (InsuranceContract) {
+    function getContract(
+        address _contract
+    ) external view returns (InsuranceContract) {
         return contracts[_contract];
     }
 
@@ -64,6 +72,5 @@ contract InsuranceProvider{
         return i.getContractStatus();
     }
 
-    receive() external payable {  }
-
+    receive() external payable {}
 }
