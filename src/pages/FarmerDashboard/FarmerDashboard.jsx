@@ -1,15 +1,77 @@
 import styles from "./FarmerDashboard.module.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import {useSafeInsureContext} from "../../Context/SafeInsureContext";
+import {useAuth} from '../../Context/AuthContext';
+import axios from "../../helpers/axios";
+import { ToastContainer, toast } from "react-toastify";
 
 const FarmerDashboard = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const { connectUsingArcana, currentAccount } = useAuth();
+
+  useEffect(() => {
+		connectUsingArcana();
+		if (currentAccount) {
+			fetchUser();
+			fetchFarmInsurances();
+		}
+	}, [currentAccount]);
+
+	const {
+    registerUser,
+    fetchUserByAddress,
+    fetchUserFarms,
+    fetchAllCompanies
+   } = useSafeInsureContext();
+
+  const fetchUser = useCallback(async () => {
+		try {
+			const user = await fetchUserByAddress(currentAccount);
+			console.log(user);
+      setUser(user);
+		} catch (err) {
+			console.log("User cannot be fetched");
+      toast.error("Could not fetch user");
+      navigate("/register");
+		}
+	});
+
   const navigateInsurances = () => {
     navigate("/insurances");
   };
 
+  const fetchFarmInsurances = async()=>{
+      try{
+          const companies = await fetchAllCompanies();
+          console.log(companies);
+          var result = [];
+          const t = await fetchUserFarms();
+
+          // for(let i=0; i< companies.length; i++){
+          //   console.log(t);
+          //   for(let j=0; j<t.length; j++){
+          //     const farm = await fetchFarmById(companies[i], t[j].farmId);
+          //     result.push({
+          //       userId: farm.userId,
+          //       location: farm.location,
+          //       landArea: farm.landArea,
+          //       cropType: farm.cropType,
+          //       ipfsHash: farm.ipfsHash,
+          //       fileName: farm.fileName
+          //     })
+          //   }
+          // }
+          setFarms(result);
+          console.log(companies);
+      }catch (err){
+        console.log(err);
+      }
+  }
+
+  const  [farms, setFarms] = useState([]);
   return (
     <>
       <div className={styles.dashboardMain}>
