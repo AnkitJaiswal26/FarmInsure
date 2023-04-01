@@ -64,8 +64,8 @@ export const SafeInsureProvider = ({ children }) => {
 			const arcanaProvider = await auth.connect();
 			const provider = new ethers.providers.Web3Provider(arcanaProvider);
 			const signer = provider.getSigner();
-			// const contract = fetchFarmContract(signer);
-			// return contract;
+			const contract = fetchMainContract(signer);
+			return contract;
 		} catch (error) {
 			console.log("Something went wrong while connecting with contract!");
 		}
@@ -104,6 +104,14 @@ export const SafeInsureProvider = ({ children }) => {
 		mobileNo
 	) => {
 		const contract = await connectingWithSafeInsureContract();
+		console.log(
+			address,
+			typeof name,
+			typeof age,
+			typeof gender,
+			typeof email,
+			typeof mobileNo
+		);
 		await contract.registerUser(
 			address,
 			name,

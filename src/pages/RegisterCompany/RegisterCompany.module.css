@@ -1,0 +1,144 @@
+.registerfarmerbody{
+    min-height: 100vh;
+    position: fixed;
+    width: 100%;
+    background-image: url('../../images/company3.avif');
+    background-size: cover;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    z-index: 1;
+}
+.formBox {
+	padding: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transition: 0.5s;
+    position: relative;
+    z-index: 100;
+}
+.heading {
+	font-size: 25px;
+	font-weight: 700;
+	text-align: center;
+	width: 100%;
+    color: #210B2C;
+	margin-bottom: 20px;
+}
+
+.header {
+    font-size: 25px;
+    color: white;
+	font-weight: 700;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 330px;
+}
+
+.inputLabel {
+    font-size: 1.1rem;
+    color: white;
+    font-weight: 600;
+    padding: 20px 0px 0px 0px;
+    margin: 5px;
+    width: 100%;
+}
+
+.input {
+    width: 100%;
+    padding: 12px 12px;
+    outline: none;
+    text-decoration: none;
+    border: 1px white solid;
+    margin: 0.1rem;
+    font-size: 1.1rem;
+    background-color: #FAFAFA;
+    border-radius: 0.4rem;
+    box-shadow: 0px 1px 5px #000000;
+}
+
+.chooseFileBtn{
+    width: 100%;
+    padding: 0.8rem 0.6rem;
+    border-radius: 0.5rem;
+    background-color: #FAFAFA;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    margin: 0.1rem;
+    color: rgb(45, 45, 45);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+.chooseFileInput{
+    display: none;
+}
+
+.registerBtn, .submitButton{
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 1.8rem;
+    background-image: linear-gradient(#3062F3, #090446);
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    transition: all 0.5s ease;
+    box-shadow: 0px 1px 5px #12196c;
+}
+
+.registerBtn:hover, .submitButton:hover{
+    background-image: linear-gradient(#3062F3, #090446);
+    transform: scale(1.02);
+}
+
+.loader{
+    align-self: center;
+}
+
+/* .submitButton:hover{
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.13);
+    color: black;
+}
+.submitButton{
+    width: 50%;
+    padding: 0.8rem 1rem;
+    border: none;
+} */
+
+.modalContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.closeButton{
+    background-color: transparent;
+    padding: 0.3rem 0.5rem;
+    align-self: flex-end;
+    font-size: 0.9rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    border: none;
+    /* width: 10%; */
+}
+
+
+@media only screen and (max-width: 500px) {
+    .inputContainer {
+        width: 80%;
+    }
+}
