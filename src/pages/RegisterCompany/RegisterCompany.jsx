@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 import { BounceLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 import { useSafeInsureContext } from "../../Context/SafeInsureContext";
 
 const RegisterCompany = () => {
+	const { t } = useTranslation();
+
 	const hiddenChooseFile = useRef();
 
 	const navigate = useNavigate();
@@ -84,15 +87,15 @@ const RegisterCompany = () => {
 				<div className={styles.registerfarmerbody}></div>
 				<form className={`${styles.formBox}`} onSubmit={handleSubmit}>
 					<div className={`${styles.header}`}>
-						Automate your Insurance Claims!
+						{t("company_register_head")}
 					</div>
 					<h2 className={`${styles.heading}`}>
-						Insurance Company's Registration
+						{t("company_register_head2")}
 					</h2>
 
 					<div className={`${styles.inputContainer}`}>
 						<label className={`${styles.inputLabel}`}>
-							Company Name
+							{t("cname")}
 						</label>
 						<input
 							className={`${styles.input}`}
@@ -103,7 +106,7 @@ const RegisterCompany = () => {
 					</div>
 					<div className={`${styles.inputContainer}`}>
 						<label className={`${styles.inputLabel}`}>
-							Company Email
+							{t("cemail")}
 						</label>
 						<input
 							className={`${styles.input}`}
@@ -114,7 +117,7 @@ const RegisterCompany = () => {
 					</div>
 					<div className={`${styles.inputContainer}`}>
 						<label className={`${styles.inputLabel}`}>
-							Company Contact No
+							{t("cno")}
 						</label>
 						<input
 							className={`${styles.input}`}
@@ -125,7 +128,7 @@ const RegisterCompany = () => {
 					</div>
 					<div className={`${styles.inputContainer}`}>
 						<label className={`${styles.inputLabel}`}>
-							Upload Certificate of Registration
+							{t("upload")}
 						</label>
 
 						<div className={styles.fileUploadContainer}>
@@ -135,9 +138,7 @@ const RegisterCompany = () => {
 								}}
 								className={styles.chooseFileBtn}
 							>
-								{docFileName === ""
-									? "Choose File"
-									: docFileName}
+								{docFileName === "" ? t("file") : docFileName}
 							</button>
 							<input
 								ref={hiddenChooseFile}
@@ -157,7 +158,7 @@ const RegisterCompany = () => {
 							<BounceLoader size={24} color={"white"} />
 						) : (
 							<>
-								Register
+								{t("register")}
 								{/* <ArrowForwardIcon className={styles.arrowForwardIcon} /> */}
 							</>
 						)}

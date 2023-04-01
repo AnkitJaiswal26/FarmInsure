@@ -6,7 +6,7 @@
     background-size: cover;
     filter: blur(8px);
     -webkit-filter: blur(8px);
-    z-index: 1;
+    z-index: 0;
 }
 .formBox {
 	padding: 40px;
@@ -16,7 +16,7 @@
 	align-items: center;
 	transition: 0.5s;
     position: relative;
-    z-index: 100;
+    z-index: 0;
 }
 .heading {
 	font-size: 25px;
@@ -36,10 +36,14 @@
 	margin-bottom: 20px;
 }
 
-.inputContainer {
+.inputContainer, .inputContainer2 {
     display: flex;
     flex-direction: column;
     width: 330px;
+}
+
+.inputContainer2{
+    flex-direction: row;
 }
 
 .inputLabel {
@@ -51,7 +55,7 @@
     width: 100%;
 }
 
-.input {
+.input, .modalInput {
     width: 100%;
     padding: 12px 12px;
     outline: none;
@@ -62,9 +66,13 @@
     border-radius: 0.4rem;
     box-shadow: 0px 1px 5px black;
 }
+.modalInput{
+    padding: 6px 1px;
+}
 
 
-.registerBtn, .submitButton{
+.registerBtn, .submitButton, .submitOtpButton{
+    margin: auto;
     margin-top: 1rem;
     display: flex;
     align-items: center;
@@ -79,12 +87,29 @@
     color: white;
     transition: all 0.5s ease;
     box-shadow: 0px 1px 10px #12196c;
-
 }
 
-.registerBtn:hover, .submitButton:hover{
+.registerBtn:hover, .submitButton:hover, .submitOtpButton:hover{
     background-image: linear-gradient(#3062F3, #090446);
     transform: scale(1.02);
+}
+
+.submitOtpButton{
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+}
+.verifyButton{
+    margin: auto;
+    margin-left: 3rem;
+    margin-right: -1.6rem;
+    margin-bottom: 0rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 1.8rem;
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
 }
 
 .loader{
@@ -101,10 +126,22 @@
     border: none;
 } */
 
+@media only screen and (max-width: 500px) {
+    .inputContainer {
+        width: 80%;
+    }
+    .inputContainer2{
+        width: 80%;
+
+    }
+}
 .modalContainer{
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* background-color: #231123; */
+    /* position: fixed; */
+    /* z-index: 1000; */
 }
 
 .closeButton{
@@ -116,11 +153,4 @@
     cursor: pointer;
     border: none;
     /* width: 10%; */
-}
-
-
-@media only screen and (max-width: 500px) {
-    .inputContainer {
-        width: 80%;
-    }
 }
