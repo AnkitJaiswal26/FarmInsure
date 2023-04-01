@@ -97,16 +97,16 @@ const App = () => {
 					<AdminDashboard />
 				</>
 			),
-    },
-    {
-      path: "/:id/company",
+		},
+		{
+			path: "/companyDashboard",
 			element: (
 				<>
 					<CompanyDashboard />
 				</>
 			),
-    }
-  ]);
+		},
+	]);
 
 	return (
 		<>

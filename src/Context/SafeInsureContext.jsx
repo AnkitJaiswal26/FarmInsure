@@ -275,6 +275,12 @@ export const SafeInsureProvider = ({ children }) => {
 		return data;
 	};
 
+	const fetchInsuranceAddress = async () => {
+		const contract = await connectingWithSafeInsureContract();
+		const data = await contract.fetchInsuranceAddress();
+		return data;
+	};
+
 	const fetchAllInsurances = async () => {
 		const contract = await connectingWithSafeInsureContract();
 		const providers = await contract.fetchAllProviders();
@@ -342,6 +348,7 @@ export const SafeInsureProvider = ({ children }) => {
 				fetchAllInsurances,
 				addNewInsuranceType,
 				fetchMyInsList,
+				fetchInsuranceAddress,
 			}}
 		>
 			{children}
