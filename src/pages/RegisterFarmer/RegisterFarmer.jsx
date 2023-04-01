@@ -36,7 +36,7 @@ const RegisterFarmer = () => {
 			const user = await fetchUserByAddress(currentAccount);
 			console.log(user);
 			if (user.name !== "") {
-				navigate("/userDashboard");
+				navigate(`/${user.userAdd}/farmerdashboard`);
 			}
 		} catch (err) {
 			console.log("User cannot be fetched");

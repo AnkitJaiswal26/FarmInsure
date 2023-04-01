@@ -1,7 +1,11 @@
 import styles from "./Insurance.module.css";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import fvector from "../../images/fvector.jpg";
+import { useSafeInsureContext } from "../../Context/SafeInsureContext";
+import { useAuth } from "../../Context/AuthContext";
+
 
 const Insurance = () => {
 	const { t } = useTranslation();
@@ -10,6 +14,26 @@ const Insurance = () => {
 	const navigateInsurances = () => {
 		navigate("/insurances");
 	};
+
+	const { connectUsingArcana, currentAccount } = useAuth();
+
+	const { newContract, fetchUserByAddress } =
+		useSafeInsureContext();
+
+		const fetchUser = useCallback(async () => {
+			try {
+				const user = await fetchUserByAddress(currentAccount);
+				console.log(user);
+			} catch (err) {
+				navigate("/register");
+				console.log("User cannot be fetched");
+			}
+		});
+	
+		useEffect(() => {
+			if (currentAccount) fetchUser();
+			connectUsingArcana();
+		}, [currentAccount]);	
 
 	return (
 		<>
