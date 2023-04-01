@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
+import "./InsuranceProvider.sol";
+
 // import "hardhat/console.sol";
 
 contract SafeInsure {
@@ -40,7 +42,7 @@ contract SafeInsure {
     mapping(uint256 => User) userMapping;
     mapping(uint256 => Company) companyMapping;
     mapping(uint256 => Company) companyRequestMapping;
-    // mapping(uint256 => InsuranceProvider) providers;
+    mapping(uint256 => InsuranceProvider) providers;
     mapping(uint256 => UserFarm) userFarms;
 
     mapping(address => uint256) userAddressToIdMapping;
@@ -98,6 +100,7 @@ contract SafeInsure {
         companyAddressToIdMapping[companyAdd] = companyCount;
 
         // TODO: add provider
+        providers[companyCount] = new InsuranceProvider();
 
         companyRequestMapping[
             companyAddressToIdRequestMapping[companyAdd]
@@ -233,5 +236,18 @@ contract SafeInsure {
 
     function OwnerIs() public view returns (bool) {
         return owner == msg.sender;
+    }
+
+    function fetchInsuranceAddress() public view returns (address) {
+        return address(providers[companyAddressToIdMapping[msg.sender]]);
+    }
+
+    function fetchAllProviders() public view returns (address[] memory) {
+        address[] memory result = new address[](companyCount - 1);
+        for (uint256 i = 1; i <= companyCount; i++) {
+            result[i - 1] = address(providers[i]);
+        }
+
+        return result;
     }
 }

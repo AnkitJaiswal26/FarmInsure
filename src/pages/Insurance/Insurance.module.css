@@ -1,0 +1,87 @@
+.mainContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    align-items: center;
+    background-image: linear-gradient(#66D2CC, #3062F3);
+    text-align: center;
+}
+.secondContainer{
+    margin: 2rem 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 1.8rem;
+    background-color: #ffffff;
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #1C5253;
+    transition: all 0.5s ease;
+    box-shadow: 0px 1px 8px #000000;
+    /* opacity: 0.8; */
+    /* filter: blur(8px); */
+}
+.mainHeading{
+    font-family: 'Prosto One', cursive;
+    margin: 15px;
+    padding: 20px;
+    color: #1C5253;
+}
+.shadow{
+    width: 100%;
+    height: 1px;
+    box-shadow: 0px 1px 5px #d0d0d0;
+}
+.insuranceImage{
+    width: 40%;
+    box-shadow: 0px 1px 5px 0px #15227d;
+    border-radius: 20%;
+    margin: 50px 10px;
+}
+.insuranceDetails{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+.insuranceInfo{
+    margin: 60px 10px;
+}
+.values{
+    margin: 0px 10px;
+    color: #15227d;
+}
+.description{
+    width: 85%;
+    margin: 50px 10px;
+    color: #15227d;
+}
+.registerBtn, .submitButton{
+    margin: 2.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8rem 1.8rem;
+    background-image: linear-gradient(#66D2CC, #3062F3);
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    transition: all 0.5s ease;
+    width: 250px;
+    justify-content: center;
+    box-shadow: 0px 1px 5px #12196c;
+}
+
+.registerBtn:hover, .submitButton:hover{
+    background-image: linear-gradient(#3062F3, #090446);
+    transform: scale(1.02);
+}
