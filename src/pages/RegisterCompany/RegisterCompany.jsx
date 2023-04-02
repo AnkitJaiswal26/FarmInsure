@@ -33,7 +33,7 @@ const RegisterCompany = () => {
 			const user = await fetchCompanyByAddress(currentAccount);
 			console.log(user);
 			if (user.name !== "") {
-				navigate("/companydashboard");
+				navigate("/company");
 			}
 		} catch (err) {
 			const data = await fetchActiveRequests();
