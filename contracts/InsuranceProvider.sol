@@ -118,7 +118,12 @@ contract InsuranceProvider {
         InsuranceContract i = InsuranceContract(_address);
         return i.volume();
     }
-    
+
+    function checkClaimable(address _address) external view returns (bool) {
+        InsuranceContract i = InsuranceContract(_address);
+        return i.getClaimable();
+    }
+
     // function notify() public view onlyOwner returns (InsuranceContract[] memory){
 
     //     uint count = 0;
