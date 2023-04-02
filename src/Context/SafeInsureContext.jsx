@@ -107,7 +107,7 @@ export const SafeInsureProvider = ({ children }) => {
 				);
 				const contracts = await newContract.fetchAllContracts();
 				for (let j = 0; j < contracts.length; j++) {
-					await newContract.checkWeather(contracts[i]);
+					await newContract.checkWeather(contracts[j]);
 				}
 			}
 		}
@@ -124,10 +124,10 @@ export const SafeInsureProvider = ({ children }) => {
 				const contracts = await newContract.fetchAllContracts();
 				for (let j = 0; j < contracts.length; j++) {
 					const status = await newContract.checkClaimStatus(
-						contracts[i]
+						contracts[j]
 					);
-					if (status === true && sentmails[contracts[i]] === false) {
-						sentmails[contracts[i]] = true;
+					if (status === true && sentmails[contracts[j]] === false) {
+						sentmails[contracts[j]] = true;
 						// TODO: axios request
 					}
 				}
@@ -147,13 +147,13 @@ export const SafeInsureProvider = ({ children }) => {
 				const contracts = await newContract.fetchAllContracts();
 				for (let j = 0; j < contracts.length; j++) {
 					const status = await newContract.checkClaimStatus(
-						contracts[i]
+						contracts[j]
 					);
 					if (
 						status === true &&
-						sentmailsCompany[contracts[i]] === false
+						sentmailsCompany[contracts[j]] === false
 					) {
-						sentmails[contracts[i]] = true;
+						sentmails[contracts[j]] = true;
 						// TODO: axios request
 					}
 				}
@@ -448,6 +448,13 @@ export const SafeInsureProvider = ({ children }) => {
 		await contract.setClaimable();
 	};
 
+	const payout = async (contractAdd, payoutVal) => {
+		const contract = await connectingWithInsuranceContract(contractAdd);
+		await contract.payout({
+			value: ethers.utils.parseUnits(payoutVal * 0.0001, "ether"),
+		});
+	};
+
 	const addNewInsuranceType = async (
 		contractAdd,
 		premium,
@@ -484,6 +491,35 @@ export const SafeInsureProvider = ({ children }) => {
 		return data;
 	};
 
+	const getPayoutVal = async (contractAdd) => {
+		const contract = await connectingWithInsuranceContract(contractAdd);
+		const data = await contract.getPayoutVal();
+		return data;
+	};
+
+	const fetchPayFarms = async (contractAdd) => {
+		const contract = await connectingWithInsuranceProviderContract(
+			contractAdd
+		);
+		const contracts = await contract.fetchAllContracts();
+		var result = [];
+		for (let i = 0; i < contracts.length; i++) {
+			const status = await newContract.checkClaimStatus(contracts[i]);
+			if (status === true) {
+				const details = await fetchDetails(contracts[i]);
+				const payout = getPayoutVal(contracts[i]);
+				result.push({
+					contractAdd: contracts[i],
+					cropType: details.cropType,
+					cropLocation: details.cropLocation,
+					payout: payout,
+				});
+				// TODO: axios request
+			}
+		}
+		return result;
+	};
+
 	return (
 		<SafeInsureContext.Provider
 			value={{
@@ -512,6 +548,8 @@ export const SafeInsureProvider = ({ children }) => {
 				fetchPremium,
 				payPremium,
 				claimPremium,
+				payout,
+				fetchPayFarms,
 			}}
 		>
 			{children}
