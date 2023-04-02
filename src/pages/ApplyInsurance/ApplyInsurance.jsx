@@ -79,10 +79,10 @@ const ApplyInsurance = () => {
       <div className={styles.secondContainer}>
         <h1 className={styles.heading}>Apply to Insurance Premium!</h1>
         <form className={`${styles.formBox}`} onSubmit={handleSubmit}>
-          <div className={`${styles.header}`}>
+          {/* <div className={`${styles.header}`}>
             To protect farmers from financial losses due to crop damage or yield
             losses caused by natural disasters
-          </div>
+          </div> */}
           <div className={`${styles.inputContainer}`}>
             <label className={`${styles.inputLabel}`}>Location</label>
             <input
@@ -116,7 +116,7 @@ const ApplyInsurance = () => {
             </select>
           </div>
           <div className={`${styles.inputContainer}`}>
-            <label className={`${styles.inputLabel}`}>Crop Type</label>
+            <label className={`${styles.inputLabel}`}>Farm No.</label>
             <select
               onChange={(e) => {
                 setFarms(e.target.value);
