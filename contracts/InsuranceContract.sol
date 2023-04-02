@@ -17,6 +17,7 @@ contract InsuranceContract is ChainlinkClient {
     uint claimStartDate;
     bool public toClaimStatus;
     bool isClaimed;
+    bool isClaimable;
     uint requestCount;
     uint daysWithoutRain;
     uint warmDays;
@@ -203,7 +204,11 @@ contract InsuranceContract is ChainlinkClient {
     }
 
     function getClaimable() public view returns (bool) {
-        return isClaimed;
+        return isClaimable;
+    }
+
+    function setClaimable() public {
+        isClaimable = true;
     }
 
     function getRainfallTemp(

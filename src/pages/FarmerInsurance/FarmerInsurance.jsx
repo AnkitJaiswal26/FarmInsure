@@ -13,6 +13,8 @@ const FarmerInsurance = () => {
 		getClaimable,
 		fetchDetails,
 		getContractStatusForMain,
+		claimPremium,
+		payPremium,
 	} = useSafeInsureContext();
 
 	const [contractActive, setContractActive] = useState(true);
@@ -46,10 +48,70 @@ const FarmerInsurance = () => {
 		if (currentAccount) fetchUser();
 		connectUsingArcana();
 	}, [currentAccount]);
+
+	const payPremiumBtn = async (e) => {
+		e.preventDefault();
+		try {
+			const contractAdd = window.location.href.split("/")[2];
+			await payPremium(contractAdd, premium.totalAmount / premium.months);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const claimPremiumBtn = async (e) => {
+		e.preventDefault();
+		try {
+			const contractAdd = window.location.href.split("/")[2];
+			await claimPremium(contractAdd);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	return (
 		<div>
 			<div>
-				<div></div>
+				<div>Farmer Insurane</div>
+				<div>
+					<div>
+						Details:
+						<div>
+							<h2>
+								Crop Type: {details ? details.cropType : ""}
+							</h2>
+							<h2>
+								Location: {details ? details.cropLocation : ""}
+							</h2>
+							<h2>
+								Premium: {premium ? premium.totalAmount : ""}
+							</h2>
+							<h2>
+								Total Months: {premium ? premium.months : ""}
+							</h2>
+							<h2>
+								Months Remaining:{" "}
+								{premium
+									? premium.months - premium.currentMonth
+									: ""}
+							</h2>
+							<h2>
+								Remaining premium:{" "}
+								{premium ? premium.remainingAmount : ""}
+							</h2>
+							{new Date() - premium.monthDate > 0 ? (
+								<button onClick={payPremiumBtn}>
+									Pay Premium
+								</button>
+							) : null}
+							{claimable ? (
+								<button onClick={claimPremiumBtn}>
+									Claim Premium
+								</button>
+							) : null}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
