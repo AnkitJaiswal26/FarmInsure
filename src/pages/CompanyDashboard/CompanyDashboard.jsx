@@ -43,13 +43,12 @@ const CompanyDashboard = () => {
 
 			const data = await fetchMyInsList(contractAddress);
 
-			console.log(data);
 			setInsurances(data);
 
 			const temp = await fetchPayFarms(contractAddress);
 			setPayFarms(temp);
 		} catch (err) {
-			navigate("/register");
+			// navigate("/register");
 		}
 	});
 
@@ -221,22 +220,6 @@ const CompanyDashboard = () => {
 								</div>
 							);
 						})}{" "}
-						<div className={styles.farm}>
-							<div className={styles.headFarm}>FileName</div>
-							<div className={styles.details}>
-								Location:{" "}
-								<span className={styles.values}>Bhusawal</span>
-							</div>
-							<div className={styles.details}>
-								LandArea:{" "}
-								<span className={styles.values}>1 acre</span>
-							</div>
-							<div className={styles.details}>
-								CropType:{" "}
-								<span className={styles.values}>Kharif</span>
-							</div>
-							<button className={styles.button}>Verify</button>
-						</div>
 					</div>
 				</div>
 				<div className={styles.viewInsurances}>

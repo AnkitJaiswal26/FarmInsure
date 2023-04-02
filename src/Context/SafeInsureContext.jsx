@@ -360,13 +360,20 @@ export const SafeInsureProvider = ({ children }) => {
 			cropLoc,
 			cropType
 		);
+		console.log(((premium * 0.001) / duration).toString());
 		await contract.newContract(
 			client,
 			premium,
 			payout,
 			duration,
 			cropLoc,
-			cropType
+			cropType,
+			{
+				value: ethers.utils.parseUnits(
+					((premium * 0.001) / duration).toString(),
+					"ether"
+				),
+			}
 		);
 		console.log("In context after");
 	};
@@ -434,9 +441,6 @@ export const SafeInsureProvider = ({ children }) => {
 			for (let j = 0; j < temp.length; j++) {
 				result.push({
 					contractAddress: providers[i],
-					// companyAdd: companies[i].comAdd,
-					// name: companies[i].name,
-					// cin: companies[i].cin,
 					id: temp[j].id,
 					premium: temp[j].premium.toString(),
 					payout: temp[j].payout.toString(),

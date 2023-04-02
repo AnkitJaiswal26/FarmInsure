@@ -69,7 +69,7 @@ contract InsuranceProvider {
         uint _duration,
         string memory _cropLocation,
         string memory _cropType
-    ) public onlyOwner {
+    ) public payable onlyOwner {
         contractCount++;
 
         InsuranceContract i = new InsuranceContract(

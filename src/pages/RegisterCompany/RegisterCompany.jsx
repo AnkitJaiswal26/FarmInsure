@@ -62,7 +62,7 @@ const RegisterCompany = () => {
 				toast.warn("Please wait for a moment");
 				await registerCompany(currentAccount, name, mobileNo);
 				toast.success("User registered successfully");
-				navigate("/companyDashboard");
+				navigate("/company");
 			}
 		} catch (err) {
 			console.log(err);
@@ -83,44 +83,44 @@ const RegisterCompany = () => {
 						{t("company_register_head")}
 					</div> */}
 					<div className={`${styles.paper}`}>
-					<h2 className={`${styles.heading}`}>
-						{t("company_register_head2")}
-					</h2>
+						<h2 className={`${styles.heading}`}>
+							{t("company_register_head2")}
+						</h2>
 
-					<div className={`${styles.inputContainer}`}>
-						<label className={`${styles.inputLabel}`}>
-							{t("cname")}
-						</label>
-						<input
-							className={`${styles.input}`}
-							type="text"
-							onChange={(e) => setName(e.target.value)}
-							value={name}
-						/>
-					</div>
-					<div className={`${styles.inputContainer}`}>
-						<label className={`${styles.inputLabel}`}>
-							{t("cemail")}
-						</label>
-						<input
-							className={`${styles.input}`}
-							type="text"
-							onChange={(e) => setEmail(e.target.value)}
-							value={email}
-						/>
-					</div>
-					<div className={`${styles.inputContainer}`}>
-						<label className={`${styles.inputLabel}`}>
-							{t("cno")}
-						</label>
-						<input
-							className={`${styles.input}`}
-							type="text"
-							onChange={(e) => setMobileNo(e.target.value)}
-							value={mobileNo}
-						/>
-					</div>
-					{/* <div className={`${styles.inputContainer}`}>
+						<div className={`${styles.inputContainer}`}>
+							<label className={`${styles.inputLabel}`}>
+								{t("cname")}
+							</label>
+							<input
+								className={`${styles.input}`}
+								type="text"
+								onChange={(e) => setName(e.target.value)}
+								value={name}
+							/>
+						</div>
+						<div className={`${styles.inputContainer}`}>
+							<label className={`${styles.inputLabel}`}>
+								{t("cemail")}
+							</label>
+							<input
+								className={`${styles.input}`}
+								type="text"
+								onChange={(e) => setEmail(e.target.value)}
+								value={email}
+							/>
+						</div>
+						<div className={`${styles.inputContainer}`}>
+							<label className={`${styles.inputLabel}`}>
+								{t("cno")}
+							</label>
+							<input
+								className={`${styles.input}`}
+								type="text"
+								onChange={(e) => setMobileNo(e.target.value)}
+								value={mobileNo}
+							/>
+						</div>
+						{/* <div className={`${styles.inputContainer}`}>
 						<label className={`${styles.inputLabel}`}>
 							{t("upload")}
 						</label>
@@ -144,20 +144,20 @@ const RegisterCompany = () => {
 						</div>
 					</div> */}
 
-					<button
-						className={styles.registerBtn}
-						onClick={handleSubmit}
-					>
-						{isLoading ? (
-							<BounceLoader size={24} color={"white"} />
-						) : (
-							<>
-								{t("register")}
-								{/* <ArrowForwardIcon className={styles.arrowForwardIcon} /> */}
-							</>
-						)}
-						{/* Register */}
-					</button>
+						<button
+							className={styles.registerBtn}
+							onClick={handleSubmit}
+						>
+							{isLoading ? (
+								<BounceLoader size={24} color={"white"} />
+							) : (
+								<>
+									{t("register")}
+									{/* <ArrowForwardIcon className={styles.arrowForwardIcon} /> */}
+								</>
+							)}
+							{/* Register */}
+						</button>
 					</div>
 				</form>
 			</div>
