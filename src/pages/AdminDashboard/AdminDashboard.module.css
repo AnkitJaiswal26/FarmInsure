@@ -22,7 +22,7 @@
 }
 
 .name{
-    color: #981EF8;
+    color: #0d1a44;
     display: flex;
     justify-content: start;
     font-weight: bold;
@@ -30,7 +30,7 @@
 }
 
 .accountName{
-    color: #981EF8;
+    color: #0d1a44;
 }
 
 .detailsHeading{
@@ -42,7 +42,7 @@
     flex-direction: row;
     justify-content: space-between;
     text-align: left;
-    border-bottom: 2px solid #981EF8;
+    border-bottom: 2px solid #0d1a44;
     padding: 10px 0px;
 }
 
@@ -52,7 +52,7 @@
     padding: 0.5rem 1rem;
     border-radius: 0.2rem;
     background-color: transparent;
-    color: #981EF8;
+    color: #0d1a44;
     font-weight: bold;
     cursor: pointer;
 }
@@ -66,7 +66,7 @@
     outline: none;
     padding: 0.5rem 1rem;
     border-radius: 0.2rem;
-    background-color: #981EF8;
+    background-color: #0d1a44;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -105,7 +105,7 @@
     display: flex;
     flex-direction: row;
     padding: 0.5rem;
-    background-image: linear-gradient(#ac3fff, #981EF8);
+    background: #0d1a44;
     color: white;
     border-radius: 0.2rem;
 }
@@ -114,7 +114,7 @@
     display: flex;
     flex-direction: row;
     padding: 0.5rem;
-    background-color: #F2E2FF;
+    background-color: #d7d5d8;
     border-radius: 0.2rem;
     cursor: pointer;
     transition: all 0.5s ease;
@@ -125,7 +125,7 @@
 }
 
 .docCard:hover{
-    background-color: #edd8ff;
+    background-color: #ffffff;
     transform: translateY(-0.1rem);
 }
 
@@ -159,7 +159,7 @@
 
 .input {
     width: 100%;
-    padding: 12px 0px;
+    padding: 10px 2px;
     outline: none;
     border: none;
     margin: 10px;
@@ -198,20 +198,22 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 0.8rem 1.8rem;
-    background-image: linear-gradient(#538cff, #2a71ff);
+    padding: 0.8rem 1.4rem;
+    background-color:#dc7805;
     border: none;
-    outline: none;
+    outline: 1px solid #dc7805;
     border-radius: 0.4rem;
     font-size: 1.1rem;
     font-weight: bold;
     color: white;
     transition: all 0.5s ease;
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
 }
 
 .requestFileBtn:hover{
-    background-image: linear-gradient(#538cff, #1c68ff);
+    background: white;
+    color: #dc7805;
+    border: 1px solid #dc7805;
     transform: scale(1.02);
 }
 
@@ -219,7 +221,7 @@
     .docCardHeader{
         font-size: 0.9rem;
     }
-    
+
     .docCard{
         font-size: 0.9rem;
     }
