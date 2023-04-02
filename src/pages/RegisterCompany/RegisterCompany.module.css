@@ -8,7 +8,10 @@
     -webkit-filter: blur(8px);
     z-index: 1;
 }
-.formBox {
+
+
+
+.formBox, .paper{
 	padding: 40px;
 	display: flex;
 	flex-direction: column;
@@ -18,13 +21,20 @@
     position: relative;
     z-index: 100;
 }
+
+.paper{
+    background: #FAFAFA;
+    border-radius: 10px;
+    padding-top: 10px;
+}
+
 .heading {
 	font-size: 25px;
 	font-weight: 700;
 	text-align: center;
 	width: 100%;
     color: #210B2C;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 }
 
 .header {
@@ -33,7 +43,7 @@
 	font-weight: 700;
 	text-align: center;
 	width: 100%;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 }
 
 .inputContainer {
@@ -43,42 +53,46 @@
 }
 
 .inputLabel {
-    font-size: 1.1rem;
-    color: white;
-    font-weight: 600;
-    padding: 20px 0px 0px 0px;
+    font-size: 1rem;
+    color: #1e1d27;
+    font-weight: 400;
+    padding: 10px 0px 0px 0px;
     margin: 5px;
     width: 100%;
 }
 
 .input {
     width: 100%;
-    padding: 12px 12px;
+    padding: 10px 2px;
     outline: none;
     text-decoration: none;
     border: 1px white solid;
     margin: 0.1rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
     background-color: #FAFAFA;
-    border-radius: 0.4rem;
-    box-shadow: 0px 1px 5px #000000;
+    border-bottom: 1px solid #dbd7d7;
+    /* border-radius: 0.4rem; */
+    /* box-shadow: 0px 1px 5px #000000; */
 }
 
 .chooseFileBtn{
     width: 100%;
     padding: 0.8rem 0.6rem;
-    border-radius: 0.5rem;
-    background-color: #FAFAFA;
+    /* border-radius: 1; */
+    background-color: #848280;
     outline: none;
     border: none;
     cursor: pointer;
-    margin: 0.1rem;
-    color: rgb(45, 45, 45);
+    margin-top: 20px;
+    color: white;
     font-weight: bold;
     display: flex;
     justify-content: center;
 }
 
+.chooseFileBtn:hover{
+    background-color: #dc7805;
+}
 .chooseFileInput{
     display: none;
 }
@@ -89,19 +103,21 @@
     align-items: center;
     cursor: pointer;
     padding: 0.8rem 1.8rem;
-    background-image: linear-gradient(#3062F3, #090446);
+    background-color:#044918;
     border: none;
-    outline: none;
+    outline: 1px solid #044918;
     border-radius: 0.4rem;
     font-size: 1.1rem;
     font-weight: bold;
     color: white;
     transition: all 0.5s ease;
-    box-shadow: 0px 1px 5px #12196c;
+    box-shadow: 0px 1px 5px #044918;
 }
 
 .registerBtn:hover, .submitButton:hover{
-    background-image: linear-gradient(#3062F3, #090446);
+    background: white;
+    color: #044918;
+    border: 1px solid #044918;
     transform: scale(1.02);
 }
 

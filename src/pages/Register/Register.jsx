@@ -21,6 +21,7 @@ const Register = () => {
   };
   return (
     <div className={styles.mainContainer}>
+      <div className = {styles.Container}>
       <h1 className={styles.mainHeading}>{t("identity")}</h1>
       <h1 className={styles.secondaryHeading}>{t("register_as")}</h1>
       <div className={styles.buttonOptions}>
@@ -49,6 +50,7 @@ const Register = () => {
             </>
           </button>
         </div>
+      </div>
       </div>
     </div>
   );

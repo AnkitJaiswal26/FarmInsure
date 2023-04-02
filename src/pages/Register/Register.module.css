@@ -2,18 +2,27 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     min-height: 100vh;
     align-items: center;
-    background-image: linear-gradient(#66D2CC, #3062F3);
-    text-align: center;
+    background-image: url('../../images/farming-banner1.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+.Container{
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .mainHeading{
     font-family: 'Poppins', sans-serif;
     margin: 50px 10px;
     margin-bottom: 5px;
     padding-top: 25px;
-    color: #085152;
+    color: #044918;
 }
 .secondaryHeading{
     font-family: 'Alkatra', cursive;
@@ -55,21 +64,23 @@
     align-items: center;
     cursor: pointer;
     padding: 0.8rem 1.8rem;
-    background-image: linear-gradient(#3062F3, #090446);
+    background-color:#044918;
     border: none;
-    outline: none;
+    outline: 1px solid #044918;
     border-radius: 0.4rem;
     font-size: 1.1rem;
     font-weight: bold;
     color: white;
     transition: all 0.5s ease;
-    width: 250px;
+    width: 200px;
     justify-content: center;
-    box-shadow: 0px 1px 5px #12196c;
+    box-shadow: 0px 1px 5px #044918;
 }
 
 .registerBtn:hover, .submitButton:hover{
-    background-image: linear-gradient(#3062F3, #090446);
+    background: white;
+    color: #044918;
+    border: 1px solid #044918;
     transform: scale(1.02);
 }
 
@@ -95,10 +106,12 @@ select option{
 .image1{
     border-radius: 50%;
     width: 50%;
-    box-shadow: 0px 5px 10px 1px #15227d;
+    box-shadow: 0px 5px 5px 1px #044918;
 }
 .image2{
-    box-shadow: 0px 5px 10px 1px #15227d;
+    box-shadow: 0px 5px 5px 1px #044918;
     border-radius: 50%;
     width: 44%;
 }
+
+/* Media Queries */

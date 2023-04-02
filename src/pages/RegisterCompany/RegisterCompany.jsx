@@ -79,9 +79,10 @@ const RegisterCompany = () => {
 			<div className={styles.registerPageContainer}>
 				<div className={styles.registerfarmerbody}></div>
 				<form className={`${styles.formBox}`} onSubmit={handleSubmit}>
-					<div className={`${styles.header}`}>
+					{/* <div className={`${styles.header}`}>
 						{t("company_register_head")}
-					</div>
+					</div> */}
+					<div className={`${styles.paper}`}>
 					<h2 className={`${styles.heading}`}>
 						{t("company_register_head2")}
 					</h2>
@@ -157,6 +158,7 @@ const RegisterCompany = () => {
 						)}
 						{/* Register */}
 					</button>
+					</div>
 				</form>
 			</div>
 		</>

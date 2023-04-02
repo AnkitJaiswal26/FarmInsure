@@ -113,7 +113,7 @@ const RegisterFarmer = () => {
 	return (
 		<>
 			<ToastContainer />
-			{/* <div className={styles.registerPageContainer}> */}
+			<div className={styles.registerPageContainer}>
 			<div className={styles.registerfarmerbody}></div>
 			<form className={`${styles.formBox}`} onSubmit={handleSubmit}>
 				<Modal
@@ -180,10 +180,12 @@ const RegisterFarmer = () => {
 							</button>
 						</form>
 					</div>
-				</Modal>{" "}
+				</Modal>
+				{/* {" "}
 				<div className={`${styles.header}`}>
 					{t("farmer_register_head")}
-				</div>
+				</div> */}
+				<div className={`${styles.paper}`}>
 				<h2 className={`${styles.heading}`}>
 					{t("farmer_register_head2")}
 				</h2>
@@ -241,6 +243,8 @@ const RegisterFarmer = () => {
 					<input
 						className={`${styles.input}`}
 						type="number"
+						min="0"
+						max ="100"
 						onChange={(e) => setAge(e.target.value)}
 						value={age}
 					/>
@@ -270,8 +274,10 @@ const RegisterFarmer = () => {
 					)}
 					{/* Register */}
 				</button>
+				</div>
+
 			</form>
-			{/* </div> */}
+			</div>
 		</>
 	);
 };

@@ -36,7 +36,6 @@ const MainPage = () => {
 			<div className={styles.secondaryHeading}>{t("second")}</div>
 
 			<div className={styles.inputContainer}>
-				<label className={styles.inputLabel}>{t("choose")}</label>
 				<select
 					className={styles.input}
 					//   onChange={(e) => setLanguage(e.target.value)}
