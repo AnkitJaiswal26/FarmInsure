@@ -160,7 +160,7 @@ const CompanyDashboard = () => {
           <h2 className={styles.farmsHead}>View My Customers</h2>
           <div className={styles.shadow}></div>
           <div className={styles.farmsCards}>
-            <div className={styles.farm}>
+            {/* <div className={styles.farm}>
               <div className={styles.headFarm}>FileName</div>
               <div className={styles.details}>
                 Location: <span className={styles.values}>Latur</span>
@@ -185,7 +185,7 @@ const CompanyDashboard = () => {
                 CropType: <span className={styles.values}>Kharif</span>
               </div>
               <button className={styles.button}>Verify</button>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className={styles.viewInsurances}>

@@ -9,9 +9,14 @@ import { useAuth } from "../../Context/AuthContext";
 const Insurance = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [insuranceId, setInsuranceId] = useState("");
+  const [insuranceId, setInsuranceId] = useState();
+  const [premium, setPremium] = useState();
+  const [duration, setDuration] = useState();
+  const [payout, setPayout] = useState("");
   const [insurance, setInsurance] = useState([]);
   const [location, setLocation] = useState([]);
+  const [loc, setLoc] = useState("Dhule");
+  const [cropType, setCropType] = useState("Rabi");
 
   const navigateInsurances = () => {
     navigate("/insurances");
@@ -48,8 +53,11 @@ const Insurance = () => {
         parseInt(window.location.pathname.split("/")[2])
       );
 
-      console.log("ins fetched", ins, insuranceId);
+      console.log("ins fetched", ins.payout.toNumber(), insuranceId);
       setInsurance(ins);
+      setPayout(ins.payout.toNumber());
+      setPremium(ins.premium.toNumber());
+      setDuration(ins.premium.toNumber());
     } catch (err) {
       console.log(err, insuranceId);
       console.log("Insurance not fetched");
@@ -58,11 +66,34 @@ const Insurance = () => {
 
   const fetchLocation = useCallback(async () => {
     try {
-      const farms = await fetchUserFarms(currentAccount);
-      setLocation(farms.location);
-      console.log("farms", farms);
+      const farms = await fetchUserFarms();
+      const arr = [];
+      for (let i = 0; i < farms.length; i++) {
+        arr.push(farms[i].location.toString());
+      }
+      setLocation(arr);
+      console.log("farms", farms, arr);
     } catch (err) {
       console.log(err, "Farms not fetched");
+    }
+  });
+
+  const createInsurance = useCallback(async () => {
+    try {
+      const contractAddress = await fetchInsuranceAddress();
+      console.log("In");
+      await newContract(
+        contractAddress,
+        currentAccount,
+        premium,
+        payout,
+        duration,
+        loc,
+        cropType
+      );
+      console.log("Out");
+    } catch (err) {
+      console.log(err, "Insurance Contract cannot be created");
     }
   });
 
@@ -70,6 +101,7 @@ const Insurance = () => {
     if (currentAccount) {
       fetchUser();
       fetchIns();
+      fetchLocation();
     }
 
     connectUsingArcana();
@@ -84,7 +116,7 @@ const Insurance = () => {
           <div className={styles.shadow}></div>
           <div className={styles.insuranceDetails}>
             <div className={styles.insuranceInfo}>
-              Premium:{" "}
+              Premium(Rs):{" "}
               <span className={styles.values}>
                 {insurance.premium ? insurance.premium.toString() : ""}
               </span>
@@ -96,30 +128,37 @@ const Insurance = () => {
               </span>
             </div>
             <div className={styles.insuranceInfo}>
-              Payout:{" "}
+              Payout(Rs):{" "}
               <span className={styles.values}>
                 {insurance.payout ? insurance.payout.toString() : ""}
               </span>
             </div>
           </div>
-          <div className={styles.shadow}></div>
-          <div className={`${styles.inputContainer}`}>
-            <label className={`${styles.inputLabel}`}>Location</label>
-            <select
-              onChange={(e) => setLocation(e.target.value)}
-              className={`${styles.input2}`}
-            >
-              {/* <option key={0}></option> */}
-              {location.map((value, id) => {
-                return <option key={id}>{value}</option>;
-              })}
-            </select>
+          <div className={styles.selectOptions}>
+            <div className={`${styles.inputContainer}`}>
+              <label className={`${styles.inputLabel}`}>Location</label>
+              <select
+                onChange={(e) => setLoc(e.target.value)}
+                className={`${styles.input}`}
+              >
+                {location.map((value, id) => {
+                  return <option key={id}>{value}</option>;
+                })}
+              </select>
+            </div>
+            <div className={`${styles.inputContainer}`}>
+              <label className={`${styles.inputLabel}`}>Crop Type</label>
+              <select
+                className={`${styles.input}`}
+                onChange={(e) => setCropType(e.target.value)}
+              >
+                <option value="Rabi">Rabi</option>
+                <option value="Kharif">Kharif</option>
+                {/* <option>Others</option> */}
+              </select>
+            </div>
           </div>
-          <div className={styles.shadow}></div>
-          <button
-            className={styles.registerBtn}
-            // onClick={handleRegisterInsuranceCompany}
-          >
+          <button className={styles.registerBtn} onClick={createInsurance}>
             <>
               Apply
               {/* <ArrowForwardIcon className={styles.arrowForwardIcon} /> */}

@@ -190,7 +190,7 @@ export const SafeInsureProvider = ({ children }) => {
   const fetchUserFarms = async () => {
     const contract = await connectingWithSafeInsureContract();
     const data = await contract.fetchUserFarms();
-	console.log("data", data)
+    console.log("data", data);
     return data;
   };
 
@@ -212,6 +212,7 @@ export const SafeInsureProvider = ({ children }) => {
     const contract = await connectingWithInsuranceProviderContract(
       contractAddress
     );
+    console.log("In context before", client, premium, payout, duration, cropLoc, cropType);
     await contract.newContract(
       client,
       premium,
@@ -220,6 +221,7 @@ export const SafeInsureProvider = ({ children }) => {
       cropLoc,
       cropType
     );
+    console.log("In context after");
   };
 
   const getInsurer = async (contractAddress) => {
@@ -254,14 +256,14 @@ export const SafeInsureProvider = ({ children }) => {
     return data;
   };
 
-  const fetchInsurance = async(contractAddress, id) => {
-	const contract = await connectingWithInsuranceProviderContract(
-		contractAddress
-	)
-	console.log("idddd", id, typeof id)
-	const data = await contract.fetchInsurance(id);
-	return data;
-  }
+  const fetchInsurance = async (contractAddress, id) => {
+    const contract = await connectingWithInsuranceProviderContract(
+      contractAddress
+    );
+    console.log("idddd", id, typeof id);
+    const data = await contract.fetchInsurance(id);
+    return data;
+  };
 
   const fetchInsuranceAddress = async () => {
     const contract = await connectingWithSafeInsureContract();
@@ -336,7 +338,7 @@ export const SafeInsureProvider = ({ children }) => {
         fetchMyInsList,
         fetchInsuranceAddress,
         newContract,
-		fetchInsurance
+        fetchInsurance,
       }}
     >
       {children}

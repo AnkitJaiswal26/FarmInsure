@@ -99,7 +99,7 @@ const App = () => {
 			),
     },
     {
-      path: "/:id/company",
+      path: "/company",
 			element: (
 				<>
 					<CompanyDashboard />
