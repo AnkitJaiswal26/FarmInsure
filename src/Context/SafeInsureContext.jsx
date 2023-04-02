@@ -14,6 +14,7 @@ import {
 import { useAuth } from "./AuthContext";
 import { Web3Storage } from "web3.storage";
 import { useAuth as arcanaAuth } from "@arcana/auth-react";
+import axios from "axios";
 
 // TODO: Uncomment the below lines after deploying
 const fetchMainContract = (signerOrProvider) =>
@@ -128,7 +129,21 @@ export const SafeInsureProvider = ({ children }) => {
 					);
 					if (status === true && sentmails[contracts[j]] === false) {
 						sentmails[contracts[j]] = true;
+
+						const final = await connectingWithInsuranceContract(
+							contracts[i]
+						);
+						const data = await final.getClient();
+						const user = await contract.fetchUserByAddress(
+							data.userAdd
+						);
+
 						// TODO: axios request
+						await axios.post("http://localhost:5000/sendMail", {
+							subject: "Payout for the insurance",
+							email: user.email,
+							data: "Temp Data",
+						});
 					}
 				}
 			}
@@ -155,6 +170,11 @@ export const SafeInsureProvider = ({ children }) => {
 					) {
 						sentmails[contracts[j]] = true;
 						// TODO: axios request
+						await axios.post("http://localhost:5000/sendMail", {
+							subject: "Payout for the insurance",
+							email: "abjaiswal_b19@ce.vjti.ac.in",
+							data: "Temp Data",
+						});
 					}
 				}
 			}

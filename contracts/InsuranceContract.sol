@@ -100,6 +100,10 @@ contract InsuranceContract is ChainlinkClient {
         jobId = "ca98366cc7314957b8c012c72f05aeeb";
     }
 
+    function getClient() public view returns (address) {
+        return client;
+    }
+
     function fetchPremium() public view returns (PaymentPremium memory) {
         return premiumPayment;
     }
