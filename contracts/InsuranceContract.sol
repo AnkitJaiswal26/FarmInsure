@@ -255,6 +255,10 @@ contract InsuranceContract is ChainlinkClient {
         toClaimStatus = false;
     }
 
+    function getPayoutVal() public view returns (uint256) {
+        return payoutValue;
+    }
+
     function payPremium(uint256 premiumVal) public payable {
         payable(address(this)).transfer(msg.value);
         payable(owner).transfer(premiumVal);
