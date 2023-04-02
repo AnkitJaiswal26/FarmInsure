@@ -41,7 +41,7 @@ const AddFarm = () => {
 		setDocFileName(e.target.files[0].name);
 		setDocFile(e.target.files);
 	};
-	
+
 	const fetchUser = useCallback(async () => {
 		try {
 			const user = await fetchUserByAddress(currentAccount);
@@ -104,10 +104,10 @@ const AddFarm = () => {
 				<div className={styles.secondContainer}>
 					<form className={`${styles.formBox}`}>
 						<div className={`${styles.header}`}>
-							{t("farmer_register_head")}
+							Add your Farms easily!
 						</div>
 						<h2 className={`${styles.heading}`}>
-							{t("farmer_register_head2")}
+							Register Farm
 						</h2>
 						<div className={`${styles.inputContainer}`}>
 							<label className={`${styles.inputLabel}`}>
