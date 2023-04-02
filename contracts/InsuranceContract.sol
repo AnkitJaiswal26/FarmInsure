@@ -99,6 +99,14 @@ contract InsuranceContract is ChainlinkClient {
         jobId = "ca98366cc7314957b8c012c72f05aeeb";
     }
 
+    function fetchPremium() public view returns (PaymentPremium memory) {
+        return premiumPayment;
+    }
+
+    function fetchDetails() public view returns (string memory, string memory) {
+        return (cropLocation, cropType);
+    }
+
     function getContractStatus() public view returns (bool) {
         return contractActive;
     }

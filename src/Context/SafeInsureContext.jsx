@@ -448,6 +448,30 @@ export const SafeInsureProvider = ({ children }) => {
 		await contract.addInsType(premium, payout, duration);
 	};
 
+	const fetchPremium = async (contractAdd) => {
+		const contract = await connectingWithInsuranceContract(contractAdd);
+		const data = await contract.fetchPremium();
+		return data;
+	};
+
+	const getClaimable = async (contractAdd) => {
+		const contract = await connectingWithInsuranceContract(contractAdd);
+		const data = await contract.getClaimable();
+		return data;
+	};
+
+	const fetchDetails = async (contractAdd) => {
+		const contract = await connectingWithInsuranceContract(contractAdd);
+		const data = await contract.fetchDetails();
+		return data;
+	};
+
+	const getContractStatusForMain = async (contractAdd) => {
+		const contract = await connectingWithInsuranceContract(contractAdd);
+		const data = await contract.getContractStatus();
+		return data;
+	};
+
 	return (
 		<SafeInsureContext.Provider
 			value={{
@@ -470,6 +494,10 @@ export const SafeInsureProvider = ({ children }) => {
 				fetchInsuranceAddress,
 				newContract,
 				fetchInsurance,
+				getContractStatusForMain,
+				fetchDetails,
+				getClaimable,
+				fetchPremium,
 			}}
 		>
 			{children}
