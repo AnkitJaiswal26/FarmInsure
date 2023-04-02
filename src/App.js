@@ -74,7 +74,7 @@ const App = () => {
 			),
 		},
 		{
-			path: "/:id/insurance",
+			path: "/:address/:id/insurance",
 			element: (
 				<>
 					<Insurance />
@@ -97,16 +97,16 @@ const App = () => {
 					<AdminDashboard />
 				</>
 			),
-		},
-		{
-			path: "/companyDashboard",
+    },
+    {
+      path: "/:id/company",
 			element: (
 				<>
 					<CompanyDashboard />
 				</>
 			),
-		},
-	]);
+    }
+  ]);
 
 	return (
 		<>

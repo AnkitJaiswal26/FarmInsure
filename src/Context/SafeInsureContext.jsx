@@ -190,6 +190,7 @@ export const SafeInsureProvider = ({ children }) => {
   const fetchUserFarms = async () => {
     const contract = await connectingWithSafeInsureContract();
     const data = await contract.fetchUserFarms();
+	console.log("data", data)
     return data;
   };
 
@@ -252,6 +253,15 @@ export const SafeInsureProvider = ({ children }) => {
     const data = await contract.getClaimStatus(address);
     return data;
   };
+
+  const fetchInsurance = async(contractAddress, id) => {
+	const contract = await connectingWithInsuranceProviderContract(
+		contractAddress
+	)
+	console.log("idddd", id, typeof id)
+	const data = await contract.fetchInsurance(id);
+	return data;
+  }
 
   const fetchInsuranceAddress = async () => {
     const contract = await connectingWithSafeInsureContract();
@@ -326,6 +336,7 @@ export const SafeInsureProvider = ({ children }) => {
         fetchMyInsList,
         fetchInsuranceAddress,
         newContract,
+		fetchInsurance
       }}
     >
       {children}

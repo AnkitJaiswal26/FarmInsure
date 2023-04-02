@@ -76,7 +76,7 @@ const InsuranceList = () => {
 											onClick={(e) => {
 												e.preventDefault();
 												navigate(
-													`/${val.contractAddress}/${val.id}/details`
+													`/${val.contractAddress}/${val.id}/insurance`
 												);
 											}}
 										>
