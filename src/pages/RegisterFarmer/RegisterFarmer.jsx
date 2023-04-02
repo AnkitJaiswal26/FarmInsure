@@ -99,7 +99,7 @@ const RegisterFarmer = () => {
           mobileNo
         );
         toast.success("User registered successfully");
-        navigate("/userDashboard");
+        navigate(`/${currentAccount}/farmerdashboard`);
       }
     } catch (err) {
       console.log(err);
@@ -179,83 +179,83 @@ const RegisterFarmer = () => {
           </div>
         </Modal>{" "}
         {/* <div className={`${styles.header}`}>{t("farmer_register_head")}</div>
-		 */}
-		 <div className={`${styles.paper}`}>
-        <h2 className={`${styles.heading}`}>{t("farmer_register_head2")}</h2>
-        <div className={`${styles.inputContainer}`}>
-          <label className={`${styles.inputLabel}`}>Account address</label>
-          <input
-            className={`${styles.input}`}
-            type="text"
-            disabled
-            value={currentAccount}
-          />
-        </div>
-        <div className={`${styles.inputContainer}`}>
-          <label className={`${styles.inputLabel}`}>{t("name")}</label>
-          <input
-            className={`${styles.input}`}
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-          />
-        </div>
-        <div className={`${styles.inputContainer}`}>
-          <label className={`${styles.inputLabel}`}>{t("email")}</label>
-          <input
-            className={`${styles.input}`}
-            type="text"
-            disabled
-            value={email}
-          />
-        </div>
-        <div className={`${styles.inputContainer2}`}>
+         */}
+        <div className={`${styles.paper}`}>
+          <h2 className={`${styles.heading}`}>{t("farmer_register_head2")}</h2>
           <div className={`${styles.inputContainer}`}>
-            <label className={`${styles.inputLabel}`}>{t("mobile")}</label>
+            <label className={`${styles.inputLabel}`}>Account address</label>
             <input
               className={`${styles.input}`}
               type="text"
-              onChange={(e) => setMobileNo(e.target.value)}
-              value={mobileNo}
+              disabled
+              value={currentAccount}
             />
           </div>
-          <button onClick={openModal} className={styles.verifyButton}>
-            Verify
+          <div className={`${styles.inputContainer}`}>
+            <label className={`${styles.inputLabel}`}>{t("name")}</label>
+            <input
+              className={`${styles.input}`}
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+          </div>
+          <div className={`${styles.inputContainer}`}>
+            <label className={`${styles.inputLabel}`}>{t("email")}</label>
+            <input
+              className={`${styles.input}`}
+              type="text"
+              disabled
+              value={email}
+            />
+          </div>
+          <div className={`${styles.inputContainer2}`}>
+            <div className={`${styles.inputContainer}`}>
+              <label className={`${styles.inputLabel}`}>{t("mobile")}</label>
+              <input
+                className={`${styles.input}`}
+                type="text"
+                onChange={(e) => setMobileNo(e.target.value)}
+                value={mobileNo}
+              />
+            </div>
+            <button onClick={openModal} className={styles.verifyButton}>
+              Verify
+            </button>
+          </div>
+          <div className={`${styles.inputContainer}`}>
+            <label className={`${styles.inputLabel}`}>{t("age")}</label>
+            <input
+              className={`${styles.input}`}
+              type="number"
+              onChange={(e) => setAge(e.target.value)}
+              value={age}
+            />
+          </div>
+          <div className={`${styles.inputContainer}`}>
+            <label className={`${styles.inputLabel}`}>{t("gender")}</label>
+            <select
+              className={`${styles.input}`}
+              onChange={(e) => setGender(e.target.value)}
+            >
+              <option value={"Male"}>{t("male")}</option>
+              <option value={"Female"}>{t("female")}</option>
+              <option value={"Other"}>{t("other")}</option>
+              {/* <option>Others</option> */}
+            </select>
+          </div>
+          <button className={styles.registerBtn} onClick={handleSubmit}>
+            {isLoading ? (
+              <BounceLoader size={24} color={"white"} />
+            ) : (
+              <>
+                {t("register")}
+                {/* <ArrowForwardIcon className={styles.arrowForwardIcon} /> */}
+              </>
+            )}
+            {/* Register */}
           </button>
         </div>
-        <div className={`${styles.inputContainer}`}>
-          <label className={`${styles.inputLabel}`}>{t("age")}</label>
-          <input
-            className={`${styles.input}`}
-            type="number"
-            onChange={(e) => setAge(e.target.value)}
-            value={age}
-          />
-        </div>
-        <div className={`${styles.inputContainer}`}>
-          <label className={`${styles.inputLabel}`}>{t("gender")}</label>
-          <select
-            className={`${styles.input}`}
-            onChange={(e) => setGender(e.target.value)}
-          >
-            <option value={"Male"}>{t("male")}</option>
-            <option value={"Female"}>{t("female")}</option>
-            <option value={"Other"}>{t("other")}</option>
-            {/* <option>Others</option> */}
-          </select>
-        </div>
-        <button className={styles.registerBtn} onClick={handleSubmit}>
-          {isLoading ? (
-            <BounceLoader size={24} color={"white"} />
-          ) : (
-            <>
-              {t("register")}
-              {/* <ArrowForwardIcon className={styles.arrowForwardIcon} /> */}
-            </>
-          )}
-          {/* Register */}
-        </button>
-		</div>
       </form>
       {/* </div> */}
     </>
