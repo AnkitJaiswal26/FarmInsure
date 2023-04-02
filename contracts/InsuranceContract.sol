@@ -20,10 +20,11 @@ contract InsuranceContract is ChainlinkClient{
     bool isClaimed;
     uint requestCount;
     uint daysWithoutRain;
-    uint hotDays;
+    uint warmDays;;
     string cropType;
     bytes32 jobId;
     uint256 public volume;
+    bool cropIndx;    
 
     struct PaymentPremium {
         uint256 months;
@@ -37,8 +38,8 @@ contract InsuranceContract is ChainlinkClient{
     PaymentPremium premiumPayment;
 
     // To DO
-    uint public constant DROUGHT_DAYS_THRESHOLD = 3;
-    uint public constant HOT_DAYS_THRESHOLD = 3;
+    uint public constant DROUGHT_DAYS_THRESHOLD = 1;
+    uint private constant WARM_DAYS_THRESHOLD = 1;
     uint public constant CLAIM_FILING_PERIOD = 15;
     uint public constant DAY_IN_SECONDS = 60;
 
@@ -227,6 +228,7 @@ contract InsuranceContract is ChainlinkClient{
         payable(address(this)).transfer(msg.value);
         client.transfer(payoutValue);
         emit contractPaidOut(block.timestamp, payoutValue);
+        isClaimed = true;
         toClaimStatus = false;
     }
 
