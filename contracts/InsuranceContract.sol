@@ -194,8 +194,21 @@ contract InsuranceContract is ChainlinkClient{
     
     function fulfill(bytes32 _requestId, uint256 _volume) public recordChainlinkFulfillment(_requestId) {
         volume = _volume;
+        if(volume < 200)
+            daysWithoutRain += 1;
+        else
+        {
+            daysWithoutRain = 0;
+            emit rainfallThresholdReset(volume);
+        }
+
+        if (daysWithoutRain >= DROUGHT_DAYS_THRESHOLD) {  // day threshold has been met
+            //need to pay client out insurance amount
+            toClaimStatus = true;
+            claimStartDate = block.timestamp;
+        }
     }
-    
+
     function payout() private validClaimer{
         payable(address(this)).transfer(msg.value);
         client.transfer(payoutValue);
