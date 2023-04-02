@@ -77,7 +77,7 @@ const FarmerDashboard = () => {
     <>
       <div className={styles.dashboardMain}>
         <div className={styles.secondContainer}>
-          <h1 className={styles.mainHeading}>Hello Atharva!</h1>
+          <h1 className={styles.mainHeading}>Hello {user.name}!</h1>
           <div className={styles.shadow}></div>
           <div className={styles.buttons}>
             <button className={styles.button}>Edit Profile</button>
