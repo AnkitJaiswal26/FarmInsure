@@ -27,6 +27,7 @@ const AddFarm = () => {
 	const [landArea, setLandArea] = useState(0);
 	const [cropType, setCropType] = useState("Rabi");
 	const [otp, setOtp] = useState("");
+	const [user,SetUser] = useState("");
 
 	const [location, setLocation] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
@@ -46,6 +47,7 @@ const AddFarm = () => {
 		try {
 			const user = await fetchUserByAddress(currentAccount);
 			console.log(user);
+			SetUser(user);
 		} catch (err) {
 			navigate("/register");
 			console.log("User cannot be fetched");
@@ -87,6 +89,7 @@ const AddFarm = () => {
 				//   email,
 				//   mobileNo
 				toast.success("Farm added successfully");
+				navigate(`/${user.userAdd}/farmerdashboard`);
 			}
 		} catch (err) {
 			console.log(err);
@@ -103,9 +106,9 @@ const AddFarm = () => {
 			<div className={styles.mainContainer}>
 				<div className={styles.secondContainer}>
 					<form className={`${styles.formBox}`}>
-						<div className={`${styles.header}`}>
+						{/* <div className={`${styles.header}`}>
 							Add your Farms easily!
-						</div>
+						</div> */}
 						<h2 className={`${styles.heading}`}>
 							Register Farm
 						</h2>
@@ -127,6 +130,7 @@ const AddFarm = () => {
 							<input
 								className={`${styles.input}`}
 								type="number"
+								min="0"
 								onChange={(e) => setLandArea(e.target.value)}
 								value={landArea}
 							/>
