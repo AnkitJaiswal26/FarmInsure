@@ -228,6 +228,7 @@ contract InsuranceContract is ChainlinkClient{
         payable(address(this)).transfer(msg.value);
         client.transfer(payoutValue);
         emit contractPaidOut(block.timestamp, payoutValue);
+        isClaimed = true;
         toClaimStatus = false;
     }
 
