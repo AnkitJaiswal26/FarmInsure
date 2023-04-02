@@ -12,7 +12,7 @@ import Insurance from "./pages/Insurance/Insurance";
 import AddFarm from "./pages/AddFarm/Addfarm";
 import ApplyInsurance from "./pages/ApplyInsurance/ApplyInsurance";
 import CompanyDashboard from "./pages/CompanyDashboard/CompanyDashboard";
-
+import FarmerInsurance from "./pages/FarmerInsurance/FarmerInsurance";
 const App = () => {
 	const router = createBrowserRouter([
 		{
@@ -105,7 +105,15 @@ const App = () => {
 					<CompanyDashboard />
 				</>
 			),
-    }
+    },
+	{
+		path: "/:id/farmerinsurance",
+		element: (
+			<>
+			<FarmerInsurance/>
+			</>
+		)
+	}
   ]);
 
 	return (

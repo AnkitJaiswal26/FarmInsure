@@ -99,9 +99,9 @@
     align-items: center;
     cursor: pointer;
     padding: 0.8rem 1.8rem;
-    background-image: linear-gradient(#66D2CC, #3062F3);
+    background-color:#044918;
     border: none;
-    outline: none;
+    outline: 1px solid #044918;
     border-radius: 0.4rem;
     font-size: 1.1rem;
     font-weight: bold;
@@ -111,7 +111,10 @@
 }
 
 .button:hover{
-    background-image: linear-gradient(#3062F3, #090446);
+    background: #044918;
+    outline: 1px solid #044918;
+    color: white;
+    border: 1px solid #044918;
     transform: scale(1.02);
 }
 .headInsurance{

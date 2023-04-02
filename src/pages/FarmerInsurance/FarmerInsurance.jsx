@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSafeInsureContext } from "../../Context/SafeInsureContext";
 import { useAuth } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
+import styles from './FarmerInsurance.module.css';
 const FarmerInsurance = () => {
 	const { connectUsingArcana, currentAccount } = useAuth();
 	const navigate = useNavigate();
@@ -70,48 +70,47 @@ const FarmerInsurance = () => {
 	};
 
 	return (
-		<div>
-			<div>
-				<div>Farmer Insurane</div>
-				<div>
-					<div>
+		<div className={styles.mainContainer}>
+			<div className={styles.secondContainer}>
+				<h1 className={styles.mainHeading}>Farmer Insurance</h1>
+				<div className={styles.shadow}></div>
+					<div className={styles.details}>
 						Details:
-						<div>
-							<h2>
+						<div className={styles.paper}>
+							<h4>
 								Crop Type: {details ? details.cropType : ""}
-							</h2>
-							<h2>
+							</h4>
+							<h4>
 								Location: {details ? details.cropLocation : ""}
-							</h2>
-							<h2>
+							</h4>
+							<h4>
 								Premium: {premium ? premium.totalAmount : ""}
-							</h2>
-							<h2>
+							</h4>
+							<h4>
 								Total Months: {premium ? premium.months : ""}
-							</h2>
-							<h2>
+							</h4>
+							<h4>
 								Months Remaining:{" "}
 								{premium
 									? premium.months - premium.currentMonth
 									: ""}
-							</h2>
-							<h2>
+							</h4>
+							<h4>
 								Remaining premium:{" "}
 								{premium ? premium.remainingAmount : ""}
-							</h2>
+							</h4>
 							{new Date() - premium.monthDate > 0 ? (
-								<button onClick={payPremiumBtn}>
+								<button onClick={payPremiumBtn} className={styles.button}>
 									Pay Premium
 								</button>
 							) : null}
 							{claimable ? (
-								<button onClick={claimPremiumBtn}>
+								<button onClick={claimPremiumBtn} className={styles.button2}>
 									Claim Premium
 								</button>
 							) : null}
 						</div>
 					</div>
-				</div>
 			</div>
 		</div>
 	);
