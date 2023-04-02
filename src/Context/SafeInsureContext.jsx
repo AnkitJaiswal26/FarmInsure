@@ -436,6 +436,18 @@ export const SafeInsureProvider = ({ children }) => {
 		return data;
 	};
 
+	const payPremium = async (contractAdd, premiumVal) => {
+		const contract = await connectingWithInsuranceContract(contractAdd);
+		await contract.payPremium(premiumVal, {
+			value: ethers.utils.parseUnits(premiumVal * 0.0001, "ether"),
+		});
+	};
+
+	const claimPremium = async (contractAdd) => {
+		const contract = await connectingWithInsuranceContract(contractAdd);
+		await contract.setClaimable();
+	};
+
 	const addNewInsuranceType = async (
 		contractAdd,
 		premium,
@@ -498,6 +510,8 @@ export const SafeInsureProvider = ({ children }) => {
 				fetchDetails,
 				getClaimable,
 				fetchPremium,
+				payPremium,
+				claimPremium,
 			}}
 		>
 			{children}
