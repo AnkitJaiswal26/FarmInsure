@@ -16,13 +16,13 @@
     font-family: 'Poppins', sans-serif;
     font-size: 2.5rem;
     font-weight: 500;
-    margin: 50px 10px;
+    margin: 30px 10px;
     padding-top: 100px;
-    color: #044918;
+    color: white;
 }
 .secondaryHeading{
     font-family: 'Lobster', cursive;
-    color: rgb(213, 241, 255);
+    color: #044918;
     font-weight: 100;
     font-size: 1.7rem;
     padding: 15px;

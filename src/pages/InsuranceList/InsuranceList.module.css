@@ -3,7 +3,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(#66D2CC, #3062F3);
+    background-image: url('../../images/insurance.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .secondContainer{
     margin: 2rem;
@@ -20,7 +23,7 @@
     font-weight: bold;
     color: #1C5253;
     transition: all 0.5s ease;
-    box-shadow: 0px 1px 8px #000000;
+    /* box-shadow: 0px 1px 8px #000000; */
     width: 90%;
     /* opacity: 0.8; */
     /* filter: blur(8px); */
@@ -29,11 +32,11 @@
     font-family: 'Prosto One', cursive;
     margin: 15px;
     padding: 20px;
-    color: #1C5253;
+    color: #044918;
 }
 .secondaryHeading{
     font-family: 'Lobster', cursive;
-    color: rgb(133 0 255);
+    color: #1C5253;
     text-align: center;
     font-weight: 500;
     font-size: 1.7rem;
@@ -41,9 +44,9 @@
 }
 .insuranceListHead{
     font-family: 'Chivo Mono', monospace;    
-    margin: 15px 5px;
+    margin: 5px 5px;
     padding: 20px 0px;
-    color: #3062F3;
+    color: #044918;
     /* border-bottom: 1px solid #98b2ff; */
 }
 .shadow{
