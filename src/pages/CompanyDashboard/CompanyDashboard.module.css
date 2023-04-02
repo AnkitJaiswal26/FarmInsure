@@ -3,7 +3,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(#66D2CC, #3062F3);
+    background-image: url('../../images/company3.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .secondContainer{
     margin: 2rem;
@@ -39,29 +42,47 @@
     /* border-top: 1px solid #98b2ff; */
 }
 .button, .button2{
-    margin: 1rem 5rem;
+    margin: 5rem;
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 0.8rem 1.8rem;
-    background-image: linear-gradient(#66D2CC, #3062F3);
+    padding: 1.4rem;
+    background-color:#dc7805;
     border: none;
-    outline: none;
-    border-radius: 0.4rem;
+    outline: 1px solid #dc7805;
+    /* border-radius: 0.4rem; */
     font-size: 1.1rem;
     font-weight: bold;
     color: white;
     transition: all 0.5s ease;
-    box-shadow: 0px 1px 10px #12196c;
+    /* box-shadow: 0px 1px 10px #12196c; */
 }
 .headFarm, .headInsurance{
     font-size: 1.3rem;
     font-weight: bold;
 }
 .button:hover{
-    background-image: linear-gradient(#3062F3, #090446);
+    background: white;
+    outline: 1px solid#dc7805;
+    color: #044918;
     transform: scale(1.02);
 }
+
+.button2{
+
+    background: white;
+    outline: 1px solid #044918;
+    color: #044918;
+    transform: scale(1.02);
+}
+
+.farmsHead:hover, .insuranceHead:hover{
+    background: #044918;
+    outline: 1px solid #044918;
+    color: white;
+    transform: scale(1.02);
+}
+
 .button2:hover{
     transform: scale(1.02);
 }
@@ -75,20 +96,23 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 15px 35px;
-    padding: 20px 0px;
+    margin: 15px 15px;
+    padding: 20px 20px;
     padding-bottom: 0px;
     margin-bottom: 0px;
+    align-items: center;
     /* border-bottom: 1px solid #98b2ff; */
 }
 .farmsHead, .insuranceHead{
     font-family: 'Chivo Mono', monospace;    
-    margin: 15px 5px;
-    padding: 20px 50px;
-    color: #3062F3;
+    margin: 5px;
+    padding: 20px 20px;
+    color: #044918;
+    outline: 1px solid #044918;
 }
 .button2{
-    background-image: linear-gradient(#3062f3, #3062f3);
+    background: #044918;
+    color: white;
     margin: 35px;
 }
 .farmsCards, .insuranceCards{
@@ -207,18 +231,20 @@
     align-items: center;
     cursor: pointer;
     padding: 0.8rem 1.8rem;
-    background-image: linear-gradient(#3062F3, #090446);
+    background-color:#044918;
     border: none;
-    outline: none;
+    outline: 1px solid #044918;
     border-radius: 0.4rem;
     font-size: 1.1rem;
     font-weight: bold;
     color: white;
     transition: all 0.5s ease;
-    box-shadow: 0px 1px 10px #12196c;
+    box-shadow: 0px 1px 5px #044918;
 }
 
 .registerBtn:hover, .submitButton:hover, .submitOtpButton:hover{
-    background-image: linear-gradient(#3062F3, #090446);
+    background: white;
+    color: #044918;
+    border: 1px solid #044918;
     transform: scale(1.02);
 }

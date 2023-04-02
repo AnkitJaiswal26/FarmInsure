@@ -152,7 +152,7 @@ const FarmerDashboard = () => {
                   })
                 ) : (
                   <span className={styles.emptyListMessage}>
-                    Insurances found
+                    No Insurances found
                   </span>
                 )}
               </div>

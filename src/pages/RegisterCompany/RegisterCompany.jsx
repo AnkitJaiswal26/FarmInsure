@@ -120,7 +120,7 @@ const RegisterCompany = () => {
 							value={mobileNo}
 						/>
 					</div>
-					<div className={`${styles.inputContainer}`}>
+					{/* <div className={`${styles.inputContainer}`}>
 						<label className={`${styles.inputLabel}`}>
 							{t("upload")}
 						</label>
@@ -142,7 +142,7 @@ const RegisterCompany = () => {
 								className={styles.chooseFileInput}
 							/>
 						</div>
-					</div>
+					</div> */}
 
 					<button
 						className={styles.registerBtn}
