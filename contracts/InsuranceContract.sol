@@ -172,30 +172,57 @@ contract InsuranceContract is ChainlinkClient{
         //First build up a request to Weather API to get the current rainfall
         // https://api.weatherapi.com/v1/current.json?key=442a3abebf154466ae4175918233103&q=Pune&aqi=no
 
+
+        if (keccak256(abi.encodePacked(cropType)) == keccak256(abi.encodePacked("Kharif")))
+            cropIndx = true;
+        else
+            cropIndx = false;
+            
         string memory url = string(abi.encodePacked(WEATHER_API_URL, "key=",WEATHER_API_KEY,"&q=",cropLocation));
-        checkRainfall(jobId, url);
+        getRainfallTemp(jobId, url);
 
         // Now build up the second request to WeatherBit
         // url = string(abi.encodePacked(WEATHERBIT_URL, "city=",cropLocation,"&key=",WEATHERBIT_KEY));
         // checkRainfall(oracles[1], jobIds[1], url, WEATHERBIT_PATH);        
     }
     
-    function checkRainfall(bytes32 currJobId, string memory url) public onContractActive()
+    function getRainfallTemp(bytes32 currJobId, string memory url) public onContractActive()
     {   
         Chainlink.Request memory req = buildChainlinkRequest("ca98366cc7314957b8c012c72f05aeeb", address(this), this.fulfill.selector);
         req.add(
             'get', url
         );
-        req.add('path', 'current,precip_mm');
+        if (cropIndx)
+            req.add('path', 'current,precip_mm');
+        else
+            req.add('path','current,temp_c');
+
         req.addInt('times', 100); // Multiply by times value to remove decimals. Parameter required so pass '1' if the number returned doesn't have decimals
         sendChainlinkRequest(req, (1 * LINK_DIVISIBILITY) / 10); // 0,1*10**18 LINK
     }
 
     
     function fulfill(bytes32 _requestId, uint256 _volume) public recordChainlinkFulfillment(_requestId) {
+        
         volume = _volume;
+        if (volume > 2500)
+            warmDays += 1;
+        else if(volume < 200)
+            daysWithoutRain += 1;
+        else
+        {
+            daysWithoutRain = 0;
+            warmDays = 0;
+        }
+
+        if (cropIndx && daysWithoutRain >= DROUGHT_DAYS_THRESHOLD) {  
+            toClaimStatus = true;
+        } 
+        else if(!cropIndx && warmDays >= WARM_DAYS_THRESHOLD) {
+            toClaimStatus = true;
+        }
     }
-    
+
     function payout() private validClaimer{
         payable(address(this)).transfer(msg.value);
         client.transfer(payoutValue);
